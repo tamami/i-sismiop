@@ -16,12 +16,80 @@
       <menupopup>
         <menuitem id="persiapan" label="Persiapan" if="${menuController.persiapanMn }">
           <menupopup>
-            <menuutem=
+            <menuitem id="pembuatanZnt" label="Pembuatan ZNT" if="${menuController.pembuatanZntMn }">
+              <menupopup>
+                <menuitem id="pembuatanTblBlok" label="Pembuatan Tabel Blok" if="${menuController.pembuatanTblBlokMn }" />
+                <menuitem id="perubahanNir" label="Perubahan NIR" if="${menuController.perubahanNirMn }" />
+                <menuitem id="pembuatanTblPetaZnt" label="Pembuatan Tabel Peta ZNT" if="${menuController.pembuatanTblPetaZntMn }" />
+                <menuitem id="perubahanZntMassal" label="Perubahan ZNT Massal" if="${menuController.perubahanZntMassalMn }" />
+              </menupopup>
+            </menuitem>
+            <menuitem id="copyDbkbZntTpSpptMassalThnSebelum" label="Copy DBKB, ZNT, TP SPPT Massal tahun sebelum" if="${menuController.copyDbkbZntTpSpptMassalThnSebelumMn}"/>
+            <menuitem id="pembuatanDbkb" label="Pembuatan DBKB" if="${menuController.pembuatanDbkbMn }">
+              <menupopup>
+                <menuitem id="dbkbStandard" label="DBKB Standard" if="${menuController.dbkbStandardMn }">
+                  <menupopup>
+                    <menuitem id="dbkbFasilitas" label="DBKB Fasilitas" if="${menuController.dbkbFasilitasMn }" />
+                  </menupopup>
+                </menuitem>
+                <menuitem id="dbkbNonStandard" label="DBKB Non Standard" if="${menuController.dbkbNonStandardMn }">
+                  <menupopup>
+                    <menuitem id="dbkbJpb2" label="DBKB JPB 2" if="${menuController.dbkbJpb2Mn }" />
+                    <menuitem id="dbkbJpb3" label="DBKB JPB 3" if="${menuController.dbkbJpb3Mn }" />
+                    <menuitem id="dbkbJpb4" label="DBKB JPB 4" if="${menuController.dbkbJpb4Mn }" />
+                    <menuitem id="dbkbJpb5" label="DBKB JPB 5" if="${menuController.dbkbJpb5Mn }" />
+                    <menuitem id="dbkbJpb6" label="DBKB JPB 6" if="${menuController.dbkbJpb6Mn }" />
+                    <menuitem id="dbkbJpb7" label="DBKB JPB 7" if="${menuController.dbkbJpb7Mn }" />
+                    <menuitem id="dbkbJpb8a" label="DBKB JPB 8 A" if="${menuController.dbkbJpb8AMn }" />
+                    <menuitem id="dbkbJpb8b" label="DBKB JPB 8 B" if="${menuController.dbkbJpb8BMn }" />
+                    <menuitem id="dbkbJpb9" label="DBKB JPB 9" if="${menuController.dbkbJpb9Mn }" />
+                    <menuitem id="dbkbJpb12" label="DBKB JPB 12" if="${menuController.dbkbJpb12Mn }" />
+                    <menuitem id="dbkbJpb13" label="DBKB JPB 13" if="${menuController.dbkbJpb13Mn }" />
+                    <menuitem id="dbkbJpb14" label="DBKB JPB 14" if="${menuController.dbkbJpb14Mn }" />
+                    <menuitem id="dbkbJpb15" label="DBKB JPB 15" if="${menuController.dbkbJpb15Mn }" />
+                    <menuitem id="dbkbJpb16" label="DBKB JPB 16" if="${menuController.dbkbJpb16Mn}" />
+                    <menuitem id="dbkbMezzanin" label="DBKB MEZZANIN" if="${menuController.dbkbMezzanin }" /> 
+                  </menupopup>
+                </menuitem>
+              </menupopup>
+            </menuitem>
           </menupopup>
         </menuitem>
-        <menuitem id="realisasi" label="Realisasi"
-            if="${menuController.realisasiMn }" 
-            onClick="@global-command('showFormRealisasi')"/>
+        <menuitem id="pendataanOP" label="Pendataan Objek Pajak" if="${menuController.pendataanOPMn }">
+          <menupopup>
+            <menuitem id="inputUpdateSpopLspop" label="Input/Update SPOP/LSPOP" if="${menuController.inputUpdateSpopLspopMn }" />
+            <menuitem id="updatingJlnStandard" label="Updating Jalan Standard" if="${menuController.updatingJlnStandardMn }" />
+            <menuitem id="rencanaPendataan" label="Rencana Pendataan" if="${menuController.rencanaPendataanMn }" />
+            <menuitem id="admOpBaruMutasi" label="Administrasi OP Baru dan Mutasi" if="${menuController.admOpBaruMutasiMn }" />
+          </menupopup>
+        </menuitem>
+        <menuitem id="laporanPendataanOP" label="Laporan Pendataan OP" if="${menuController.laporanPendataanOpMn }">
+          <menupopup>
+            <menuitem id="laporanTblRef" label="Laporan Tabel-Tabel Referensi" if="${menuController.laporanTblRefMn }" />
+            <menuitem id="laporanDataOp" label="Laporan Data OP" if="${menuController.laporanDataOpMn }" />
+            <menuitem id="laporanSkKanwil" label="Laporan SK Kanwil" if="${menuController.laporanSkKanwilMn }" />
+          </menupopup>
+        </menuitem>
+        <menuitem id="pemekaranWilayah" label="Pemekaran Wilayah" if="${menuController.pemekaranWilayahMn }" />
+        <menuitem id="reklas" label="Reklas" if="${menuController.reklasMn }" />
+        <menuitem id="hapusDataSistep" label="Hapus Data Sistep" if="${menuController.hapusDataSistepMn }" />
+        <menuitem id="zntSistep" label="ZNT Sistep" if="${menuController.zntSistepMn }">
+          <menupopup>
+            <menuitem id="updateZntMassal" label="Update ZNT Massal" if="${menuController.updateZntMassalMn }" />
+            <menuitem id="cetakRekapDataSistep" label="Cetak Rekap Data Sistep" if="${menuController.cetakRekapDataSistepMn }" />
+          </menupopup>
+        </menuitem>
+        <menuitem id="pemberianFlagNjoptkp" label="Pemberian Flag NJOPTKP" if="${menuController.pemberianFlagNjoptkpMn }"  />
+        <menuitem id="updateRtRwMassal" label="Update RT/RW Massal" if="${menuController.updateRtRwMassalMn }" />
+        <menuitem id="daftarFasum" label="Daftar Fasum" if="${menuController.daftarFasumMn }" />
+        <menuitem id="daftarOpTnhKosong" label="Daftar OP Tanah Kosong" if="${menuController.daftarOpTnhKosongMn }" />
+        <menuitem id="daftarNilaiIndividuKDSistem" label="Daftar Nilai Individu < Nilai Sistem" if="${menuController.daftarNilaiIndividuKDSistemMn }" />
+        <menuitem id="sin" label="S.I.N." if="${menuController.sinMn }">
+          <menupopup>
+            <menuitem id="orgPribadiBadan" label="Orang Pribadi dan Badan" if="${menuController.orgPribadiBadanMn }" />
+            <menuitem id="asetNegaraDaerah" label="Aset Negara Aset Daerah" if="${menuController.asetNegaraDaerahMn }" />
+          </menupopup>
+        </menuitem>
       </menupopup>
     </menu>
     <menu label="Laporan" if="${menuController.laporanMn }">
