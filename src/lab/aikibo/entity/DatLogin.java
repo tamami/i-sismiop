@@ -1,7 +1,10 @@
 package lab.aikibo.entity;
 
-public class DatLogin {
+import java.io.Serializable;
+
+public class DatLogin implements Serializable {
 	
+	private static final long serialVersionUID = -5068216261286675698L;
 	private String nmLogin;
 	private String nip;
 	private String password;
