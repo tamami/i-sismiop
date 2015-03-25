@@ -1,10 +1,10 @@
 <zk >
   <menubar id="menubar" apply="org.zkoss.bind.BindComposer"
-    viewModel="@id('menuController') @init('lab.aikibo.viewmodel.MenuController')">
-    <menu label="File" if="${menuController.fileMn }">
+    viewModel="@id('menuController') @init('lab.aikibo.viewmodel.MenuVM')">
+    <menu id="file" label="File" if="${menuController.fileMn }">
       <menupopup>
-        <menuitem id="admUser" label="Administrasi User" if="${menuController.penggunaMn }"
-            onClick="@global-command('showFormPengguna')"/>
+        <menuitem id="admUser" label="Administrasi User" if="${menuController.admUserMn }"
+            onClick="@global-command('callAdmUser')"/>
         <menuitem id="bckDbSismiop" label="Backup Basis Data SISMIOP" 
         	if="${menuController.bckDbSismiopMn }"/>
         <menuitem id="kalkulator" label="Kalkulator" 
@@ -12,27 +12,27 @@
         		onClick="@global-command('showFormRefKecamatan')"/>
       </menupopup>
     </menu>
-    <menu label="Pendataan" if="${menuController.pendataanMn }">
+    <menu id="pendataan" label="Pendataan" if="${menuController.pendataanMn }">
       <menupopup>
-        <menuitem id="persiapan" label="Persiapan" if="${menuController.persiapanMn }">
+        <menu id="persiapan" label="Persiapan" if="${menuController.persiapanMn }">
           <menupopup>
-            <menuitem id="pembuatanZnt" label="Pembuatan ZNT" if="${menuController.pembuatanZntMn }">
+            <menu id="pembuatanZnt" label="Pembuatan ZNT" if="${menuController.pembuatanZntMn }">
               <menupopup>
                 <menuitem id="pembuatanTblBlok" label="Pembuatan Tabel Blok" if="${menuController.pembuatanTblBlokMn }" />
                 <menuitem id="perubahanNir" label="Perubahan NIR" if="${menuController.perubahanNirMn }" />
                 <menuitem id="pembuatanTblPetaZnt" label="Pembuatan Tabel Peta ZNT" if="${menuController.pembuatanTblPetaZntMn }" />
                 <menuitem id="perubahanZntMassal" label="Perubahan ZNT Massal" if="${menuController.perubahanZntMassalMn }" />
               </menupopup>
-            </menuitem>
+            </menu>
             <menuitem id="copyDbkbZntTpSpptMassalThnSebelum" label="Copy DBKB, ZNT, TP SPPT Massal tahun sebelum" if="${menuController.copyDbkbZntTpSpptMassalThnSebelumMn}"/>
-            <menuitem id="pembuatanDbkb" label="Pembuatan DBKB" if="${menuController.pembuatanDbkbMn }">
+            <menu id="pembuatanDbkb" label="Pembuatan DBKB" if="${menuController.pembuatanDbkbMn }">
               <menupopup>
-                <menuitem id="dbkbStandard" label="DBKB Standard" if="${menuController.dbkbStandardMn }">
+                <menu id="dbkbStandard" label="DBKB Standard" if="${menuController.dbkbStandardMn }">
                   <menupopup>
                     <menuitem id="dbkbFasilitas" label="DBKB Fasilitas" if="${menuController.dbkbFasilitasMn }" />
                   </menupopup>
-                </menuitem>
-                <menuitem id="dbkbNonStandard" label="DBKB Non Standard" if="${menuController.dbkbNonStandardMn }">
+                </menu>
+                <menu id="dbkbNonStandard" label="DBKB Non Standard" if="${menuController.dbkbNonStandardMn }">
                   <menupopup>
                     <menuitem id="dbkbJpb2" label="DBKB JPB 2" if="${menuController.dbkbJpb2Mn }" />
                     <menuitem id="dbkbJpb3" label="DBKB JPB 3" if="${menuController.dbkbJpb3Mn }" />
@@ -50,56 +50,353 @@
                     <menuitem id="dbkbJpb16" label="DBKB JPB 16" if="${menuController.dbkbJpb16Mn}" />
                     <menuitem id="dbkbMezzanin" label="DBKB MEZZANIN" if="${menuController.dbkbMezzanin }" /> 
                   </menupopup>
-                </menuitem>
+                </menu>
               </menupopup>
-            </menuitem>
+            </menu>
           </menupopup>
-        </menuitem>
-        <menuitem id="pendataanOP" label="Pendataan Objek Pajak" if="${menuController.pendataanOPMn }">
+        </menu>
+        <menu id="pendataanOP" label="Pendataan Objek Pajak" if="${menuController.pendataanOPMn }">
           <menupopup>
             <menuitem id="inputUpdateSpopLspop" label="Input/Update SPOP/LSPOP" if="${menuController.inputUpdateSpopLspopMn }" />
             <menuitem id="updatingJlnStandard" label="Updating Jalan Standard" if="${menuController.updatingJlnStandardMn }" />
             <menuitem id="rencanaPendataan" label="Rencana Pendataan" if="${menuController.rencanaPendataanMn }" />
             <menuitem id="admOpBaruMutasi" label="Administrasi OP Baru dan Mutasi" if="${menuController.admOpBaruMutasiMn }" />
           </menupopup>
-        </menuitem>
-        <menuitem id="laporanPendataanOP" label="Laporan Pendataan OP" if="${menuController.laporanPendataanOpMn }">
+        </menu>
+        <menu id="laporanPendataanOP" label="Laporan Pendataan OP" if="${menuController.laporanPendataanOpMn }">
           <menupopup>
             <menuitem id="laporanTblRef" label="Laporan Tabel-Tabel Referensi" if="${menuController.laporanTblRefMn }" />
             <menuitem id="laporanDataOp" label="Laporan Data OP" if="${menuController.laporanDataOpMn }" />
             <menuitem id="laporanSkKanwil" label="Laporan SK Kanwil" if="${menuController.laporanSkKanwilMn }" />
           </menupopup>
-        </menuitem>
+        </menu>
         <menuitem id="pemekaranWilayah" label="Pemekaran Wilayah" if="${menuController.pemekaranWilayahMn }" />
         <menuitem id="reklas" label="Reklas" if="${menuController.reklasMn }" />
         <menuitem id="hapusDataSistep" label="Hapus Data Sistep" if="${menuController.hapusDataSistepMn }" />
-        <menuitem id="zntSistep" label="ZNT Sistep" if="${menuController.zntSistepMn }">
+        <menu id="zntSistep" label="ZNT Sistep" if="${menuController.zntSistepMn }">
           <menupopup>
             <menuitem id="updateZntMassal" label="Update ZNT Massal" if="${menuController.updateZntMassalMn }" />
             <menuitem id="cetakRekapDataSistep" label="Cetak Rekap Data Sistep" if="${menuController.cetakRekapDataSistepMn }" />
           </menupopup>
-        </menuitem>
+        </menu>
         <menuitem id="pemberianFlagNjoptkp" label="Pemberian Flag NJOPTKP" if="${menuController.pemberianFlagNjoptkpMn }"  />
         <menuitem id="updateRtRwMassal" label="Update RT/RW Massal" if="${menuController.updateRtRwMassalMn }" />
         <menuitem id="daftarFasum" label="Daftar Fasum" if="${menuController.daftarFasumMn }" />
         <menuitem id="daftarOpTnhKosong" label="Daftar OP Tanah Kosong" if="${menuController.daftarOpTnhKosongMn }" />
-        <menuitem id="daftarNilaiIndividuKDSistem" label="Daftar Nilai Individu < Nilai Sistem" if="${menuController.daftarNilaiIndividuKDSistemMn }" />
-        <menuitem id="sin" label="S.I.N." if="${menuController.sinMn }">
+        <menuitem id="daftarNilaiIndividuKDSistem" label="Daftar Nilai Individu Kurang Dari Nilai Sistem" if="${menuController.daftarNilaiIndividuKDSistemMn }" />
+        <menu id="dataPendukungSig" label="Data Pendukung SIG" if="${menuController.dataPendukungSigMn }">
+          <menupopup>
+            <menuitem id="dataKeluarga" label="Data Keluarga" if="${menuController.dataKeluargaMn }" />
+            <menuitem id="dataKartuKredit" label="Data Kartu Kredit" if="${menuController.dataKartuKreditMn}" />
+            <menuitem id="dataKendaraan" label="Data Kendaraan" if="${menuController.dataKendaraanMn }" />
+            <menuitem id="dataListrik" label="Data Listrik" if="${menuController.dataListrikMn }" />
+            <menuitem id="dataTelepon" label="Data Telepon" if="${menuController.dataTeleponMn }" />
+            <menuitem id="dataSertifikatImb" label="Data Sertifikat / IMB" if="${menuController.dataSertifikatImbMn }" />
+          </menupopup>
+        </menu>
+        <menu id="sin" label="S.I.N." if="${menuController.sinMn }">
           <menupopup>
             <menuitem id="orgPribadiBadan" label="Orang Pribadi dan Badan" if="${menuController.orgPribadiBadanMn }" />
             <menuitem id="asetNegaraDaerah" label="Aset Negara Aset Daerah" if="${menuController.asetNegaraDaerahMn }" />
           </menupopup>
-        </menuitem>
+        </menu>
       </menupopup>
     </menu>
-    <menu label="Laporan" if="${menuController.laporanMn }">
+    <menu id="penilaian" label="Penilaian" if="${menuController.penilaianMn }">
       <menupopup>
-        <menuitem id="rekomendasi" label="Rekomendasi"
-            if="${menuController.rekomendasiMn }" 
-            onClick="@global-command('showFormRekomendasi')"/>
-        <menuitem id="per_jns_retribusi" label="Per Jenis Retribusi"
-            if="${menuController.perJnsRetribusiMn }"
-            onClick="@global-command('showFormLaporanPerJenis')" />
+        <menuitem id="penilaianMassal" label="Penilaian Massal" if="${menuController.penilaianMassalMn }" />
+        <menuitem id="laporanPenilaian" label="Laporan Penilaian" if="${menuController.laporanPenilaianMn }" />
+      </menupopup>
+    </menu>
+    <menu id="penetapan" label="Penetapan" if="${menuController.penetapanMn }">
+      <menupopup>
+        <menuitem id="settingPencetakan" label="Setting Pencetakan" if="${menuController.settingPencetakanMn }" />
+        <menuitem id="pbbMinimal" label="PBB Minimal" if="${menuController.pbbMinimalMn }" />
+        <menuitem id="tempatPembayaranElektronik" label="Tempat Pembayaran Elektronik" if="${menuController.tempatPembayaranElektronikMn }" />
+        <menuitem id="penetapanPencetakanMassal" label="Penetapan dan Pencetakan Massal" if="${menuController.penetapanPencetakanMassalMn }" />
+        <menuitem id="salinanMassal" label="Salinan Massal" if="${menuController.salinanMassalMn }" />
+        <menuitem id="rekamTransaksiJB" label="Perekaman Transaksi Jual Beli" if="${menuController.rekamTransaksiJBMn }" />
+        <menuitem id="penetapanPencetakanSeleksi" label="Penetapan dan Pencetakan Terseleksi" if="${menuController.penetapanPencetakanSeleksiMn }" />
+        <menu id="informasiSpptSkp" label="Informasi SPPT/SKP" if="${menuController.informasiSpptSkpMn }">
+          <menupopup>
+            <menuitem id="infoRelasiOpDanSp" label="Informasi Relasi Objek Pajak Dengan Subjek Pajak" if="${menuController.infoRelasiOpDanSpMn }" />
+            <menuitem id="infoRinciSppt" label="Informasi Rinci SPPT" if="${menuController.infoRinciSpptMn }" />
+            <menuitem id="infoRinciSkpSpop" label="Informasi Rinci SKP Terhadap SPOP" if="${menuController.infoRinciSkpSpopMn }" />
+            <menuitem id="infoRinciSkpKB" label="Informasi Rinci SKP Kurang Bayar" if="${menuController.infoRinciSkpKBMn }" />
+            <menuitem id="daftarPbbLebihKurangBayar" label="Daftar PBB Lebih Atau Kurang Bayar" if="${menuController.daftarPbbLebihKurangBayarMn }" />
+          </menupopup>
+        </menu>
+        <menu id="perubahanSpptSkp" label="Perubahan SPPT / SKP" if="${menuController.perubahanSpptSkpMn }">
+          <menupopup>
+            <menu id="pembetulanSpptSkp" label="Pembetulan SPPT/SKP" if="${menuController.pembetulanSpptSkpMn }">
+              <menupopup>
+                <menuitem id="inputSkPembetulan" label="Input SK Pembetulan" if="${menuController.inputSkPembetulanMn }" />
+                <menuitem id="prosesSkPembetulan" label="Proses SK Pembetulan" if="${menuController.prosesSkPembetulanMn }" />
+                <menuitem id="inputSkPembetulanKolektif" label="Input SK Pembetulan Kolektif" if="${menuController.inputSkPembetulanKolektifMn }" />
+                <menuitem id="prosesSkPembetulanKolektif" label="Proses SK Pembetulan Kolektif" if="${menuController.prosesSkPembetulanKolektifMn }" />
+                <menuitem id="pembetulanJabatan" label="Pembetulan Secara Jabatan" if="${menuController.pembetulanJabatanMn }" />
+                <menuitem id="prosesPembetulanJabatan" label="Proses Cetak Pembetulan Secara Jabatan" if="${menuController.prosesPembetulanJabatanMn }" />
+              </menupopup>
+            </menu>
+            <menu id="pembatalanSpptSkp" label="Pembatalan SPPT/SKP" if="${menuController.pembatalanSpptSkpMn }">
+              <menupopup>
+                <menuitem id="inputSkPembatalan" label="Input SK Pembatalan Tunggal" if="${menuController.inputSkPembatalanMn }" />
+                <menuitem id="prosesSkPembatalan" label="Proses SK Pembatalan Tunggal" if="${menuController.prosesSkPembatalanMn }" />
+                <menuitem id="inputSkPembatalanKolektif" label="Input SK Pembatalan Kolektif" if="${menuController.inputSkPembatalanKolektifMn }" />
+                <menuitem id="prosesSkPembatalanKolektif" label="Proses SK Pembatalan Kolektif" if="${menuController.prosesSkPembatalanKolektifMn }" />
+              </menupopup>
+            </menu>
+          </menupopup>
+        </menu>
+        <menuitem id="penundaanJatuhTempo" label="Penundaan Tanggal Jatuh Tempo" if="${menuController.penundaanJatuhTempoMn }" />
+        <menu id="laporanDistribusiOp" label="Laporan Distribusi OP" if="${menuController.laporanDistribusiOpMn }">
+          <menupopup>
+            <menuitem id="opPerJpb" label="OP Per Kelompok JPB" if="${menuController.opPerJpbMn }" />
+            <menuitem id="opPerKelas" label="OP Per Kelas" if="${menuController.opPerKelasMn }" />
+            <menuitem id="perbandinganKelasPerDesa" label="Perbandingan Kelas Per Desa/Kelurahan" if="${menuController.perbandinganKelasPerDesaMn }" />
+            <menuitem id="opPerGroup" label="OP Per Group Ketetapan" if="${menuController.opPerGroupMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="laporanHimpunanKetetapanPbbNjop" label="Laporan Himpunan Ketetapan PBB / NJOP" if="${menuController.laporanHimpunanKetetapanPbbNjopMn }" />
+        <menuitem id="tandaTerimaSpptSkpStp" label="Tanda Terima SPPT/SKP/STP" if="${menuController.tandaTerimaSpptSkpStpMn }" />
+        <menuitem id="simulasiPenetapanMassal" label="Simulasi Penetapan Massal" if="${menuController.simulasiPenetapanMassalMn }" />
+      </menupopup>
+    </menu>
+    <menu id="pengurangan" label="Pengurangan" if="${menuController.penguranganMn }" >
+      <menupopup>
+        <menuitem id="inputDataPengurangan" label="Input Data Pengurangan" if="${menuController.inputDataPenguranganMn }" />
+        <menuitem id="cetakSkPengurangan" label="Cetak SK Pengurangan" if="${menuController.cetakSkPenguranganMn }" />
+        <menuitem id="bukuPenjagaanPengurangan" label="Buku Penjagaan Penyelesaian Permohonan Pengurangan" if="${menuController.bukuPenjagaanPenguranganMn }" />
+      </menupopup>
+    </menu>
+    <menu id="keberatan" label="Keberatan" if="${menuController.keberatanMn }" >
+      <menupopup>
+        <menu id="penyelesaianKeberatan" label="Penyelesaian Permohonan Keberatan" if="${menuController.penyelesaianKeberatanMn }">
+          <menupopup>
+            <menuitem id="inputSkKeberatan" label="Input Surat Keputusan Atas Keberatan PBB" if="${menuController.inputSkKeberatanMn }" />
+            <menuitem id="cetakSkKeberatan" label="Mencetak SK Keberatan" if="${menuController.cetakSkKeberatanMn }" />
+          </menupopup>
+        </menu>
+        <menu id="pembetulanSkKeberatan" label="Pembetulan SK Keberatan" if="${menuController.pembetulanSkKeberatanMn }">
+          <menupopup>
+            <menuitem id="inputPembetulanSkKeberatan" label="Input Pembetulan SK Keberatan PBB" if="${menuController.inputPembetulanSkKeberatanMn }" />
+            <menuitem id="cetakPembetulanSkKeberatan" label="Mencetak Pembetulan SK Keberatan PBB" if="${menuController.cetakPembetulanSkKeberatanMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="himpunanSkKeberatan" label="Laporan Daftar Himpunan Keputusan Keberatan PBB" if="${menuController.himpunanSkKeberatanMn }" />
+      </menupopup>
+    </menu>
+    <menu id="pembayaran" label="Pembayaran" if="${menuController.pembayaranMn }" >
+      <menupopup>
+        <menuitem id="pencatatanPenerimaan" label="Pencatatan Penerimaan" if="${menuController.pencatatanPenerimaanMn }" />
+        <menu id="pencatatanPembayaran" label="Pencatatan Pembayaran" if="${menuController.pencatatanPembayaranMn }" >
+          <menupopup>
+            <menuitem id="catatTunggal" label="Pencatatan Tunggal" if="${menuController.catatTunggalMn }" />
+            <menuitem id="catatMassal" label="Pencatatan Massal" if="${menuController.catatMassalMn }" />
+            <menuitem id="catatSsp" label="Pencatatan SSP PBB" if="${menuController.catatSspMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="cabutCetakSita" label="Pencabutan dan Pencetakan Surat Sita" if="${menuController.cabutCetakSitaMn }" />
+        <menuitem id="batalLelang" label="Pembatalan Lelang" if="${menuController.batalLelangMn }" />
+        <menuitem id="laporanPembayaran" label="Laporan Pembayaran" if="${menuController.laporanPembayaranMn }" />
+        <menu id="suketByrE" label="Surat Keterangan Pembayaran Elektronik" if="${menuController.suketByrEMn }" >
+          <menupopup>
+            <menuitem id="inputNop" label="Input NOP" if="${menuController.inputNopMn }" />
+            <menuitem id="pilihNop" label="Pilih NOP" if="${menuController.pilihNopMn }" />
+          </menupopup>
+        </menu>
+      </menupopup>
+    </menu>
+    <menu id="penerimaan" label="Penerimaan" if="${menuController.penerimaanMn }" >
+      <menupopup>
+        <menuitem id="inputPrognosaSemesterDua" label="Input Data Prognosa Penerimaan Semester II" if="${menuController.inputPrognosaSemesterDuaMn }" />
+        <menuitem id="laporanPenerimaan" label="Laporan Penerimaan" if="${menuController.laporanPenerimaanMn }" />
+        <menuitem id="laporanRealisasi" label="Laporan Realisasi Penerimaan" if="${menuController.laporanRealisasiMn }" />
+        <menu id="restitusiKompensasi" label="Restitusi dan Kompensasi" if="${menuController.restitusiKompensasiMn }" >
+          <menupopup>
+            <menu id="inputSkRestitusiKompensasi" label="Input SK Restitusi dan Kompensasi" if="${menuController.inputSkRestitusiKompensasiMn }" >
+              <menupopup>
+                <menuitem id="inputSuratPemberitaan" label="Input Surat Pemberitaan (SPB)" if="${menuController.inputSuratPemberitaanMn }" />
+                <menuitem id="inputRestitusiKompensasi" label="Input Restitusi / Kompensasi" if="${menuController.inputRestitusiKompensasiMn }" />
+                <menuitem id="inputSuratPencabutanSPM" label="Input Surat Pencabutan SPMKP PBB" if="${menuController.inputSuratPencabutanSPMMn }" />
+              </menupopup>
+            </menu>
+            <menuitem id="laporanTriwulanRestitusiKompensasi" label="Laporan Triwulan Restitusi dan Kompensasi" if="${menuController.laporanTriwulanRestitusiKompensasiMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="laporanEvaluasi" label="Laporan Evaluasi Penerimaan" if="${menuController.laporanEvaluasiMn }" />
+      </menupopup>
+    </menu>
+    <menu id="penagihan" label="Penagihan" if="${menuController.penagihanMn }" >
+      <menupopup>
+        <menuitem id="daftarTunggakan" label="Daftar Tunggakan" if="${menuController.daftarTunggakanMn }" />
+        <menuitem id="pengeluaranHimbauan" label="Pengeluaran Himbauan" if="${menuController.pengeluaranHimbauanMn }" />
+        <menu id="penerbitanStp" label="Penerbitan STP" if="${menuController.penerbitanStpMn }" >
+          <menupopup>
+            <menuitem id="pembuatanDppStp" label="Pembuatan DPP STP" if="${menuController.pembuatanDppStpMn }" />
+            <menuitem id="cetakStp" label="Cetak SPT PBB" if="${menuController.cetakStpMn }" />
+            <menuitem id="pembetulanStp" label="Pembetulan STP" if="${menuController.pembetulanStpMn }" />
+          </menupopup>
+        </menu>
+        <menu id="penerbitanTeguran" label="Penerbitan Surat Teguran" if="${menuController.penerbitanTeguranMn }" >
+          <menupopup>
+            <menuitem id="cetakDaftarStp" label="Pencetakan Daftar Himpunan STP" if="${menuController.cetakDaftarStpMn }" />
+            <menuitem id="cetakTeguran" label="Pencetakan Surat Teguran" if="${menuController.cetakTeguranMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="penerbitanPaksa" label="Penerbitan Surat Paksa" if="${menuController.penerbitanPaksaMn }" />
+        <menu id="penyitaan" label="Penyitaan" if="${menuController.penyitaanMn }" >
+          <menupopup>
+            <menuitem id="pembuatanSpmp" label="Pembuatan SPMP" if="${menuController.pembuatanSpmpMn }" />
+            <menuitem id="cabutBapSita" label="Pencabutan BAP Sita" if="${menuController.cabutBapSitaMn }" />
+            <menuitem id="pemberitahuanSita" label="Pemberitahuan Penyitaan Barang" if="${menuController.pemberitahuanSitaMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="catatJadwalLelang" label="Permintaan dan Pencatatan Jadwal Lelang" if="${menuController.catatJadwalLelangMn }" />
+        <menuitem id="sppSekaligus" label="Pembuatan SPP Pajak Seketika dan Sekaligus" if="${menuController.sppSekaligusMn }" />
+        <menuitem id="daftarPengawasanTindakan" label="Pembuatan Daftar Pengawasan Tindakan Penagihan PBB" if="${menuController.daftarPengawasanTindakanMn}" />
+        <menuitem id="laporanPenagihan" label="Pelaporan Pelaksanaan Penagihan PBB" if="${menuController.laporanPenagihanMn }" />
+        <menu id="penghapusanPiutang" label="Penghapusan Piutang PBB" if="${menuController.penghapusanPiutangMn }" >
+          <menupopup>
+            <menuitem id="penyusunanDp" label="Penyusunan DP PBB" if="${menuController.penyusunanDpMn }" />
+            <menuitem id="pembuatanDupp" label="Pembuatan DUPP PBB" if="${menuController.pembuatanDuppMn }" />
+            <menuitem id="catatSkSalinan" label="Pencatatan SK Salinan Bupati" if="${menuController.catatSkSalinanMn }" />
+          </menupopup>
+        </menu>
+        <menu id="daftarTagihanTakSampai" label="Pembuatan Laporan Daftar Tagihan Tidak Sampai" if="${menuController.daftarTagihanTakSampaiMn }" >
+          <menupopup>
+            <menuitem id="spptTidakSampai" label="Pencatatan SPPT Tidak Sampai" if="${menuController.spptTidakSampaiMn }" />
+            <menuitem id="laporanTidakSampai" label="Pembuatan Laporan Tidak Sampai" if="${menuController.laporanTidakSampaiMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="catatTandaTerimaPenagihan" label="Pencatatan Tanda Terima Penagihan" if="${menuController.catatTandaTerimaPenagihanMn }" />
+        <menuitem id="laporanOpTunggakan" label="Laporan OP Tunggakan" if="${menuController.laporanOpTunggakanMn }" />
+      </menupopup>
+    </menu>
+    <menu id="pelayanan" label="Pelayanan" if="${menuController.pelayananMn }" >
+      <menupopup>
+        <menuitem id="inputDataPermohonan" label="Input Data Permohonan" if="${menuController.inputDataPermohonanMn }" />
+        <menu id="penyelesaianBerkas" label="Penyelesaian Berkas" if="${menuController.penyelesaianBerkasMn }">
+          <menupopup>
+            <menuitem id="penyerahanBerkasSelesai" label="Penyerahan Berkas Pelayanan Selesai ke WP" if="${menuController.penyerahanBerkasSelesaiMn }" />
+            <menuitem id="cetakSerahTerima" label="Cetak Serah Terima Berkas Penyelesaian Pelayanan" if="${menuController.cetakSerahTerimaMn }" />
+            <menuitem id="lampSerahTerima" label="Lampiran Serah Terima Berkas Penyelesaian Pelayanan" if="${menuController.lampSerahTerimaMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="cetakTandaTerima" label="Cetak Tanda Terima" if="${menuController.cetakTandaTerimaMn }" />
+        <menu id="alurBerkas" label="Alur Berkas" if="${menuController.alurBerkasMn }" >
+          <menupopup>
+            <menuitem id="rekamKirimBerkas" label="Rekam Kirim Berkas" if="${menuController.rekamKirimBerkasMn }" />
+            <menuitem id="rekamTerimaBerkas" label="Rekam Terima Berkas" if="${menuController.rekamTerimaBerkasMn }" />
+          </menupopup>
+        </menu>
+        <menu id="monitoringPelayanan" label="Monitoring Pelayanan" if="${menuController.monitoringPelayananMn }" >
+          <menupopup>
+            <menuitem id="monitoringBerkas" label="Monitoring Berkas Pelayanan" if="${menuController.monitoringBerkasMn }" />
+            <menuitem id="monitoringStatusBerkas" label="Monitoring Berkas Pelayanan Belum/Sudah Selesai" if="${menuController.monitoringStatusBerkasMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="cetakFileKeluaran" label="Cetak File Keluaran" if="${menuController.cetakFileKeluaranMn }" />
+        <menuitem id="parameterKeluaran" label="Parameter Keluaran Pelayanan" if="${menuController.parameterKeluaranMn }" />
+      </menupopup>
+    </menu>
+    <menu id="referensi" label="Referensi" if="${menuController.referensiMn }" >
+      <menupopup>
+        <menuitem id="wilayah" label="Wilayah" if="${menuController.wilayahMn }" />
+        <menuitem id="kepegawaian" label="Kepegawaian" if="${menuController.kepegawaianMn }" />
+        <menuitem id="tempatPembayaran" label="Tempat Pembayaran" if="${menuController.tempatPembayaranMn }" />
+        <menuitem id="tempatBayarMassal" label="Tempat Pembayaran SPPT Massal" if="${menuController.tempatBayarMassalMn }" />
+        <menu id="resource" label="Resources" if="${menuController.resourceMn }">
+          <menupopup>
+            <menuitem id="hargaResource" label="Harga Resource" if="${menuController.hargaResourceMn }" />
+            <menuitem id="laporanResource" label="Laporan Harga Resource" if="${menuController.laporanResourceMn }" />
+            <menuitem id="kayuUlin" label="Kayu Ulin" if="${menuController.kayuUlinMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="bukuNjoptkpTarif" label="Buku/NJOPTKP/Tarif" if="${menuController.bukuNjoptkpTarifMn }" />
+        <menuitem id="penerima" label="Penerima" if="${menuController.penerimaMn }" />
+        <menuitem id="kantorLelang" label="Kantor Lelang" if="${menuController.kantorLelangMn }" />
+        <menuitem id="pengaturanMenu" label="Pengaturan Menu" if="${menuController.pengaturanMenuMn }" />
+        <menuitem id="kodeMap" label="Kode MAP" if="${menuController.kodeMapMn }" />
+        <menuitem id="refUmum" label="Referensi Umum" if="${menuController.refUmumMn }" />
+      </menupopup>
+    </menu>
+    <menu id="lihat" label="Lihat" if="${menuController.lihatMn }" >
+      <menupopup>
+        <menu id="dataOp" label="Data Objek Pajak" if="${menuController.dataOpMn }" >
+          <menupopup>
+            <menuitem id="daftarSpop" label="Daftar SPOP/LSPOP" if="${menuController.daftarSpopMn }" />
+            <menuitem id="daftarRingkas" label="Daftar Ringkas" if="${menuController.daftarRingkasMn }" />
+            <menuitem id="daftarKeringananPermanen" label="Daftar OP Dengan Keringanan Permanen" if="${menuController.daftarKeringananPermanenMn }" />
+            <menuitem id="daftarObjekBersama" label="Daftar Objek Bersama" if="${menuController.daftarObjekBersamaMn }" />
+            <menuitem id="daftarNilaiIndividu" label="Daftar Objek Dengan Nilai Individu" if="${menuController.daftarNilaiIndividuMn }" />
+            <menuitem id="catatBayar" label="Catatan Pembayaran PBB" if="${menuController.catatBayarMn }" />
+            <menuitem id="catatSejarahWp" label="Catatan Sejarah WP" if="${menuController.catatSejarahWpMn }" />
+            <menuitem id="catatSejarahOp" label="Catatan Sejarah OP" if="${menuController.catatSejarahOpMn }" />
+            <menuitem id="rekapOp" label="Daftar Rekapitulasi OP" if="${menuController.rekapOpMn }" />
+            <menuitem id="opPenguranganStimulus" label="OP Dengan Pengurangan Stimulus/Kebijakan Pengenaan" if="${menuController.opPenguranganStimulusMn }" />
+            <menuitem id="opTanpaPeta" label="Daftar OP Tanpa Peta" if="${menuController.opTanpaPetaMn }" />
+            <menuitem id="opTerhapus" label="Daftar OP yang Telah Dihapus" if="${menuController.opTerhapusMn }" />
+            <menuitem id="opSin" label="Daftar OP SIN" if="${menuController.opSinMn }" />
+          </menupopup>
+        </menu>
+        <menu id="berkasPst" label="Berkas PST" if="${menuController.berkasPstMn }" >
+          <menupopup>
+            <menuitem id="pstBelumSelesai" label="Daftar PST Belum Selesai" if="${menuController.pstBelumSelesaiMn }" />
+            <menuitem id="alurBerkasPst" label="Daftar Alur Berkas PST" if="${menuController.alurBerkasPstMn }" />
+            <menuitem id="detailAlurBerkasPst" label="Daftar Detail Alur Berkas PST" if="${menuController.detailAlurBerkasPstMn }" />
+          </menupopup>
+        </menu>
+        <menu id="tabel" label="Tabel" if="${menuController.tabelMn }" >
+          <menupopup>
+            <menuitem id="pemakai" label="Pemakai" if="${menuController.pemakaiMn }" />
+            <menuitem id="kelasTanah" label="Kelas Tanah" if="${menuController.kelasTanahMn }" />
+            <menuitem id="kelasBangunan" label="Kelas Bangunan" if="${menuController.kelasBangunanMn }" />
+            <menuitem id="znt" label="ZNT" if="${menuController.zntMn }" />
+            <menuitem id="volumePekerjaan" label="Volume Pekerjaan" if="${menuController.volumePekerjaanMn }" />
+            <menuitem id="unitPekerjaan" label="Unit Pekerjaan" if="${menuController.unitPekerjaanMn }" />
+            <menuitem id="penyesuaianDbkb" label="Penyesuaian DBKB" if="${menuController.penyesuaianDbkbMn }" />
+            <menuitem id="jalanStandard" label="Jalan Standard" if="${menuController.jalanStandardMn }" />
+            <menuitem id="tabelWilayah" label="Wilayah" if="${menuController.tabelWilayahMn }" />
+            <menuitem id="tabelTempatPembayaran" label="Tempat Pembayaran" if="${menuController.tabelTempatPembayaranMn }" />
+            <menuitem id="suratKeputusan" label="Surat Keputusan" if="${menuCOntroller.suratKeputusanMn }" />
+          </menupopup>
+        </menu>
+        <menu id="penetapanPenerimaan" label="Penetapan/Penerimaan" if="${menuController.penetapanPenerimaanMn }" >
+          <menupopup>
+            <menuitem id="tagihanTidakSampai" label="Daftar Tagihan Tidak Sampai" if="${menuController.tagihanTidakSampaiMn }" />
+            <menuitem id="daftarTeguran" label="Daftar Teguran Diterbitkan" if="${menuController.daftarTeguranMn }" />
+            <menuitem id="daftarPenerimaan" label="Daftar Penerimaan" if="${menuController.daftarPenerimaanMn }" />
+            <menuitem id="tunggakan" label="Daftar Tunggakan" if="${menuController.tunggakanMn }" />
+          </menupopup>
+        </menu>
+        <menu id="kinerjaOrganisasi" label="Kinerja Organisasi" if="${menuController.kinerjaOrganisasiMn }" >
+          <menupopup>
+            <menuitem id="kinerja" label="Statistik Kinerja" if="${menuController.kinerjaMn }" />
+            <menuitem id="kinerjaPelayanan" label="Statistik Kinerja Pelayanan" if="${menuController.kinerjaPelayananMn }" />
+            <menuitem id="rinciPendataanLapangan" label="Rincian Pendataan Lapangan" if="${menuController.rinciPendataanLapanganMn }" />
+            <menuitem id="rinciRekamData" label="Rincian Perekaman Data" if="${menuController.rinciRekamDataMn }" />
+            <menuitem id="rinciRekamStts" label="Rincian Perekaman STTS" if="${menuController.rinciRekamSttsMn } " />
+            <menuitem id="rinciRekamTandaTerimaSppt" label="Rincian Perekaman Tanda Terima SPPT" if="${menuController.rinciRekamTandaTerimaSpptMn }" />
+          </menupopup>
+        </menu>
+        <menu id="daftarPerubahan" label="Daftar Perubahan" if="${menuController.daftarPerubahanMn }" >
+          <menupopup>
+            <menuitem id="perubahanOp" label="Daftar Perubahan OP" if="${menuController.perubahanOpMn }" />
+            <menuitem id="perubahanZnt" label="Daftar Perubahan Tabel ZNT" if="${menuController.perubahanZntMn }" />
+            <menuitem id="perubahanSppt" label="Daftar Perubahan SPPT/STTS" if="${menuController.perubahanSpptMn }" />
+          </menupopup>
+        </menu>
+        <menu id="sejarahOp" label="Sejarah Objek Pajak" if="${menuController.sejarahOpMn }" >
+          <menupopup>
+            <menuitem id="sejarahOp2" label="Sejarah Objek Pajak" if="${menuController.sejarahOp2Mn }" />
+            <menuitem id="sejarahSppt" label="Sejarah SPPT" if="${menuController.sejarahSpptMn }" />
+          </menupopup>
+        </menu>
+        <menuitem id="nomorPelayanan" label="Nomor Pelayanan" if="${menuController.nomorPelayananMn }" />
+        <menuitem id="nopTerbesar" label="NOP Terbesar" if="${menuController.nopTerbesarMn }" />
+        <menuitem id="nopTerbesarPelayanan" label="NOP Terbesar Pelayanan" if="${menuController.nopTerbesarPelayananMn }" />
+        <menuitem id="perubahanNop" label="Perubahan NOP" if="${menuController.perubahanNopMn }" />
       </menupopup>
     </menu>
   </menubar>
