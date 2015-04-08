@@ -36,6 +36,10 @@ public class AdmUserVM {
 	private boolean roTbPassBaru;
 	private boolean roTbPassBaruConfirm;
 	private boolean enBtnUbah;
+	private boolean enBtnHapus;
+	private boolean enBtnBaru;
+	private boolean enBtnSimpan;
+	private boolean enBtnBatal;
 	private List<String> daftarLogin;
 	private String currentLogin;
 	private String currentNip;
@@ -62,6 +66,7 @@ public class AdmUserVM {
 		roTbPassPengubah = true;
 		roTbPassBaru = true;
 		roTbPassBaruConfirm = true;
+		getDefaultButton();
 		currentLogin = new String();
 		currentNip = new String();
 		currentPegawai = new String();
@@ -69,6 +74,31 @@ public class AdmUserVM {
 		currentPassPengubah = new String();
 		currentPassBaru = new String();
 		currentPassBaruConfirm = new String();
+	}
+	
+	private void getDefaultButton() {
+		enBtnUbah = true;
+		enBtnHapus = true;
+		enBtnBaru = true;
+		enBtnSimpan = true;
+		enBtnBatal = true;
+	}
+	
+	private void getEditingButton() {
+		enBtnUbah = false;
+		enBtnHapus = false;
+		enBtnBaru = false;
+		enBtnSimpan = true;
+		enBtnBatal = true;
+		
+	}
+	
+	private void getConfirmButton() {
+		enBtnUbah = true;
+		enBtnHapus = true;
+		enBtnBaru = true;
+		enBtnSimpan = false;
+		enBtnBatal = false;
 	}
 
 	public List<String> getDaftarLogin() {
@@ -83,66 +113,77 @@ public class AdmUserVM {
 		return currentLogin;
 	}
 
-	@NotifyChange({"currentNip", "currentPegawai"})
+	@NotifyChange({"currentNip", "currentPegawai","enBtnUbah","enBtnHapus","enBtnBaru",
+		"enBtnSimpan","enBtnBatal"})
 	public void setCurrentLogin(String currentLogin) {
 		this.currentLogin = currentLogin;
 		currentNip = um.getNip(currentLogin);
 		currentPegawai = pm.getNamaByNipLama(currentNip);
-		//Session session = Sessions.getCurrent();
-		//currentPengguna = ((UserCredential) session.getAttribute("userCredential")).getNama();
+		Session session = Sessions.getCurrent();
+		currentPengguna = ((UserCredential) session.getAttribute("userCredential")).getNama();
+		getEditingButton();
 	}
 	
 	@Command
 	@NotifyChange({"roTbNip","roTbNamaUser","roTbPassPengubah","roTbPassBaru",
-		"roTbPassBaruConfirm"})
+		"roTbPassBaruConfirm","enBtnUbah","enBtnHapus","enBtnBaru","enBtnSimpan","enBtnBatal"})
 	public void baruClick() {
 		roTbNip = false;
 		roTbNamaUser = false;
 		roTbPassPengubah = false;
 		roTbPassBaru = false;
 		roTbPassBaruConfirm = false;
+		getConfirmButton();
 		
 		status = StatusEntry.DATA_BARU;
 	}
 	
 	@Command
 	@NotifyChange({"roTbNip","roTbNamaUser","roTbPassPengubah","roTbPassBaru",
-		"roTbPassBaruConfirm"})
+		"roTbPassBaruConfirm","enBtnUbah","enBtnHapus","enBtnBaru","enBtnSimpan","enBtnBatal",
+		"currentPengguna"})
 	public void ubahClick() {
 		roTbNip = true;
 		roTbNamaUser = true;
 		roTbPassPengubah = false;
 		roTbPassBaru = false;
 		roTbPassBaruConfirm = false;
+		getConfirmButton();
 		
 		status = StatusEntry.UBAH_DATA;
 	}
 	
 	@Command
 	@NotifyChange({"roTbNip","roTbNamaUser","roTbPassPengubah","roTbPassBaru",
-		"roTbPassBaruConfirm"})
+		"roTbPassBaruConfirm","enBtnUbah","enBtnHapus","enBtnBaru","enBtnSimpan","enBtnBatal"})
 	public void hapusClick() {
 		roTbNip = true;
 		roTbNamaUser = true;
 		roTbPassPengubah = false;
 		roTbPassBaru = true;
 		roTbPassBaruConfirm = true;
+		getConfirmButton();
 		
 		status = StatusEntry.HAPUS_DATA;
 	}
 	
 	@Command
 	@NotifyChange({"roTbNip","roTbNamaUser","roTbPassPengubah","roTbPassBaru",
-		"roTbPassBaruConfirm"})
+		"roTbPassBaruConfirm","daftarLogin","currentLogin","currentNip",
+		"currentPegawai","currentPengguna","currentPassPengubah",
+		"currentPassBaru","currentPassBaruConfirm","enBtnUbah",
+		"enBtnHapus","enBtnBaru","enBtnSimpan","enBtnBatal"})
 	public void batalClick() {
 		clear();
+		getDefaultButton();
 	}
 	
 	@Command
 	@NotifyChange({"roTbNip","roTbNamaUser","roTbPassPengubah","roTbPassBaru",
 			"roTbPassBaruConfirm","daftarLogin","currentLogin","currentNip",
 			"currentPegawai","currentPengguna","currentPassPengubah",
-			"currentPassBaru","currentPassBaruConfirm"})
+			"currentPassBaru","currentPassBaruConfirm","enBtnUbah",
+			"enBtnHapus","enBtnBaru","enBtnSimpan","enBtnBatal"})
 	public void simpanClick() {
 		if(verifikasiData()) {
 			DatLogin data = um.getUserByNip(currentNip);
@@ -180,6 +221,7 @@ public class AdmUserVM {
 			um.saveOrUpdate(data);
 			Clients.showNotification("Data telah disimpan");
 			clear();
+			getDefaultButton();
 		}
 	}
 	
@@ -225,13 +267,6 @@ public class AdmUserVM {
 		if(status == StatusEntry.DATA_BARU && (!nmLogin.isEmpty() || nmLogin != null)) {
 			Clients.showNotification("Pengguna untuk NIP : " + currentNip + " sudah terdaftar " +
 					"dengan nama " + nmLogin);
-			return false;
-		}
-		
-		String nipTemp = getNipFromNmLogin();
-		if(status == StatusEntry.UBAH_DATA && (!nipTemp.isEmpty() || nipTemp != null)) {
-			Clients.showNotification("Nama Pengguna " + currentPengguna + " sudah " +
-					"terdaftar milik NIP " + nipTemp);
 			return false;
 		}
 			
@@ -391,6 +426,38 @@ public class AdmUserVM {
 
 	public void setEnBtnUbah(boolean enBtnUbah) {
 		this.enBtnUbah = enBtnUbah;
+	}
+	
+	public boolean isEnBtnHapus() {
+		return enBtnHapus;
+	}
+	
+	public void setEnBtnHapus(boolean enBtnHapus) {
+		this.enBtnHapus = enBtnHapus;
+	}
+	
+	public boolean isEnBtnBaru() {
+		return enBtnBaru;
+	}
+	
+	public void setEnBtnBaru(boolean enBtnBaru) {
+		this.enBtnBaru = enBtnBaru;
+	}
+	
+	public boolean isEnBtnSimpan() {
+		return enBtnSimpan;
+	}
+	
+	public void setEnBtnSimpan(boolean enBtnSimpan) {
+		this.enBtnSimpan = enBtnSimpan;
+	}
+	
+	public boolean isEnBtnBatal() {
+		return enBtnBatal;
+	}
+	
+	public void setEnBtnBatal(boolean enBtnBatal) {
+		this.enBtnBatal = enBtnBatal;
 	}
 
 }
