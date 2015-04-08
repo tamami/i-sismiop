@@ -32,4 +32,10 @@ public class GlobalController extends SelectorComposer<Component>
 		include.setSrc("/form/adm_user.zul");
 	}
 	
+	@GlobalCommand
+	public void callRefKepegawaian() {
+		Include include = (Include) Selectors.iterable(getPage(), "#mainInclude").iterator().next();
+		include.setSrc("/form/ref_kepegawaian.zul");
+	}
+	
 }
