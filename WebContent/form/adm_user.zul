@@ -58,11 +58,16 @@
     <panel border="rounded" collapsible="true">
       <panelchildren>
         <hbox align="center" pack="center" hflex="1">
-          <button label="Ubah" onClick="@command('ubahClick')"/>
-          <button label="Hapus" onClick="@command('hapusClick')"/>
-          <button label="Baru" onClick="@command('baruClick')"/>
-          <button label="Simpan" onClick="@command('simpanClick')" />
-          <button label="Batal" onClick="@command('batalClick')"/>
+          <button label="Ubah" onClick="@command('ubahClick')"
+              disabled="@bind(adm_user_vm.enBtnUbah)"/>
+          <button label="Hapus" onClick="@command('hapusClick')"
+              disabled="@bind(adm_user_vm.enBtnHapus)"/>
+          <button label="Baru" onClick="@command('baruClick')"
+              disabled="@bind(adm_user_vm.enBtnBaru)"/>
+          <button label="Simpan" onClick="@command('simpanClick')" 
+              disabled="@bind(adm_user_vm.enBtnSimpan)"/>
+          <button label="Batal" onClick="@command('batalClick')"
+              disabled="@bind(adm_user_vm.enBtnBatal)"/>
         </hbox>
       </panelchildren>
     </panel>
