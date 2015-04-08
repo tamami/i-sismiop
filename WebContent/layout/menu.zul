@@ -303,7 +303,8 @@
     <menu id="referensi" label="Referensi" if="${menuController.referensiMn }" >
       <menupopup>
         <menuitem id="wilayah" label="Wilayah" if="${menuController.wilayahMn }" />
-        <menuitem id="kepegawaian" label="Kepegawaian" if="${menuController.kepegawaianMn }" />
+        <menuitem id="kepegawaian" label="Kepegawaian" if="${menuController.kepegawaianMn }" 
+            onClick="@global-command('callRefKepegawaian')"/>
         <menuitem id="tempatPembayaran" label="Tempat Pembayaran" if="${menuController.tempatPembayaranMn }" />
         <menuitem id="tempatBayarMassal" label="Tempat Pembayaran SPPT Massal" if="${menuController.tempatBayarMassalMn }" />
         <menu id="resource" label="Resources" if="${menuController.resourceMn }">
