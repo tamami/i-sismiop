@@ -17,12 +17,21 @@
               <row>
                 Login :
                 <textbox id="account" width="200px"
-                    value="@bind(login_vm.username)" />
+                    value="@bind(login_vm.username)" 
+                    focus="@bind(login_vm.fokusUsername)">
+                  <attribute name="onOK">
+                    <![CDATA[password.focus();]]>
+                  </attribute>
+                </textbox>
               </row>
               <row>
                 Password :
                 <textbox id="password" type="password" width="200px"
-                    value="@bind(login_vm.password)" />
+                    value="@bind(login_vm.password)">
+                  <attribute name="onOK">
+                    <![CDATA[login.focus();]]>
+                  </attribute>
+                </textbox>
               </row>
             </rows>
           </grid>
