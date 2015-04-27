@@ -26,30 +26,42 @@
               <rows>
                 <row>
                   Kode Seksi
-                  <textbox value="@bind(seksi_vm.kdSeksi)"
-                      focus="@load(seksi_vm.fokusKdSeksi)"/>
+                  <textbox id="txtKdSeksi" 
+                      value="@bind(seksi_vm.kdSeksi)"
+                      focus="@bind(seksi_vm.fokusKdSeksi)">
+                    <attribute name="onOK">
+                      <![CDATA[txtNamaSeksi.focus();]]>
+                    </attribute>
+                  </textbox>
                 </row>
                 <row>
                   Nama Seksi
-                  <textbox value="@bind(seksi_vm.nmSeksi)"
-                      focus="@load(seksi_vm.fokusNmSeksi)"/>
+                  <textbox id="txtNamaSeksi" 
+                      value="@bind(seksi_vm.nmSeksi)"
+                      focus="@bind(seksi_vm.fokusNmSeksi)"/>
                 </row>
                 <row>
                   No. Surat Seksi
-                  <textbox /> 
+                  <textbox id="txtNoSuratSeksi" 
+                      value="@bind(seksi_vm.noSuratSeksi)"
+                      focus="@bind(seksi_vm.fokusNoSuratSeksi)"/> 
                 </row>
                 <row>
                   Kode Surat 1
-                  <textbox />
+                  <textbox id="txtKodeSurat1" 
+                      value="@bind(seksi_vm.kdSurat1)"
+                      focus="@bind(seksi_vm.fokusKdSurat1)"/>
                 </row>
                 <row>
                   Kode Surat 2
-                  <textbox />
+                  <textbox id="txtKodeSurat2"
+                      value="@bind(seksi_vm.kdSurat2)"
+                      focus="@bind(seksi_vm.fokusKdSurat2)"/>
                 </row>
               </rows>
             </grid>
             <hbox align="center" pack="center" hflex="1">
-              <button label="Simpan" />
+              <button label="Simpan" disabled="@bind(seksi_vm.aktifBtnSimpan)" />
               <button label="Batal" />
               <button label="Keluar" />
             </hbox>
