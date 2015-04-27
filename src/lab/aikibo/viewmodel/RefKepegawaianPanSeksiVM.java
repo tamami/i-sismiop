@@ -26,6 +26,9 @@ public class RefKepegawaianPanSeksiVM {
 	private boolean fokusNoSuratSeksi;
 	private boolean fokusKdSurat1;
 	private boolean fokusKdSurat2;
+	private boolean aktifBtnSimpan;
+	private boolean aktifBtnBatal;
+	private boolean aktifBtnKeluar;
 	
 	@Init
 	public void init() {
@@ -33,6 +36,13 @@ public class RefKepegawaianPanSeksiVM {
 		
 		setDaftarRefSeksi(rsm.getDaftarSeksi());
 		setFokusKdSeksi(true);
+		initButton();
+	}
+	
+	private void initButton() {
+		aktifBtnSimpan = true;
+		aktifBtnBatal = false;
+		aktifBtnKeluar = false;
 	}
 	
 	public String getKdSeksi() {
@@ -67,6 +77,7 @@ public class RefKepegawaianPanSeksiVM {
 							if(Messagebox.ON_OK.equals(event.getName())) {
 								setFokusNoSuratSeksi(true);
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
+								setKdSeksi("");
 								setFokusKdSeksi(true);
 							}
 						}
@@ -104,8 +115,11 @@ public class RefKepegawaianPanSeksiVM {
 		return kdSurat2;
 	}
 
+	@NotifyChange("aktifBtnSimpan")
 	public void setKdSurat2(String kdSurat2) {
 		this.kdSurat2 = kdSurat2;
+		
+		aktifBtnSimpan = false;
 	}
 
 	public List<RefSeksi> getDaftarRefSeksi() {
@@ -154,5 +168,29 @@ public class RefKepegawaianPanSeksiVM {
 
 	public void setFokusKdSurat2(boolean fokusKdSurat2) {
 		this.fokusKdSurat2 = fokusKdSurat2;
+	}
+
+	public boolean isAktifBtnSimpan() {
+		return aktifBtnSimpan;
+	}
+
+	public void setAktifBtnSimpan(boolean aktifBtnSimpan) {
+		this.aktifBtnSimpan = aktifBtnSimpan;
+	}
+
+	public boolean isAktifBtnBatal() {
+		return aktifBtnBatal;
+	}
+
+	public void setAktifBtnBatal(boolean aktifBtnBatal) {
+		this.aktifBtnBatal = aktifBtnBatal;
+	}
+
+	public boolean isAktifBtnKeluar() {
+		return aktifBtnKeluar;
+	}
+
+	public void setAktifBtnKeluar(boolean aktifBtnKeluar) {
+		this.aktifBtnKeluar = aktifBtnKeluar;
 	}
 }
