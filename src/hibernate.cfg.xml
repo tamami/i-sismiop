@@ -9,7 +9,7 @@
     <property name="connection.username">pbb</property>
     <property name="connection.password">rahasiapbb</property>
     <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="show_sql">true</property>
+    <property name="show_sql">false</property>
     <property name="format_sql">true</property>
     
     <!-- JDBC connection pool -->
@@ -27,5 +27,6 @@
     <!-- Mapping -->
     <mapping resource="lab/aikibo/mapping/DatLogin.hbm.xml" />
     <mapping resource="lab/aikibo/mapping/Pegawai.hbm.xml" />
+    <mapping resource="lab/aikibo/mapping/RefSeksi.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
