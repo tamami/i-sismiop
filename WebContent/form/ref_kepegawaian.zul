@@ -1,9 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Kepegawaian" border="normal" mode="modal"
-    width="900px" height="600px" closable="true"
-    apply="org.zkoss.bind.BindComposer"
-    viewModel="@id('adm_user_vm') @init('lab.aikibo.viewmodel.AdmUserVM')">
+    width="900px" height="600px" closable="true">
   <tabbox width="100px" hflex="1" vflex="1">
     <tabs>
       <tab label="Seksi" />
@@ -15,7 +13,8 @@
       <tab label="Tanda Tangan" />
     </tabs>
     <tabpanels>
-      <tabpanel>
+      <tabpanel apply="org.zkoss.bind.BindComposer"
+          viewModel="@id('seksi_vm') @init('lab.aikibo.viewmodel.RefKepegawaianPanSeksiVM')">
         <groupbox>
           <caption label="Referensi Seksi" />
           <vbox>
@@ -27,11 +26,13 @@
               <rows>
                 <row>
                   Kode Seksi
-                  <textbox />
+                  <textbox value="@bind(seksi_vm.kdSeksi)"
+                      focus="@load(seksi_vm.fokusKdSeksi)"/>
                 </row>
                 <row>
                   Nama Seksi
-                  <textbox />
+                  <textbox value="@bind(seksi_vm.nmSeksi)"
+                      focus="@load(seksi_vm.fokusNmSeksi)"/>
                 </row>
                 <row>
                   No. Surat Seksi
@@ -56,16 +57,37 @@
         </groupbox>
         <groupbox>
           <caption label="Data yang sudah ada" />
-          <grid mold="paging" autopaging="true">
-            <columns menupopup="auto">
-              <column label="Kode" width="50px"/>
-              <column label="Nama Seksi" />
-              <column label="No. Srt" />
-              <column label="Kd Srt 1" />
-              <column label="Kd Srt 2" />
-            </columns>
-          </grid>
+          <listbox id="box" model="@bind(seksi_vm.daftarRefSeksi)"
+              style="overflow:auto; font-size:small" multiple="true"
+              mold="paging" pageSize="5">
+            <listhead>
+              <listheader label="Kode" width="50px" />
+              <listheader label="Nama Seksi" width="300px"/>
+              <listheader label="No. Srt" />
+              <listheader label="Kd Srt 1" />
+              <listheader label="Kd Srt 2" />
+            </listhead>
+            <template name="model" var="data">
+              <listitem>
+                <listcell label="@load(data.kdSeksi)" />
+                <listcell label="@load(data.nmSeksi)" />
+                <listcell label="@load(data.noSrtSeksi)" />
+                <listcell label="@load(data.kodeSurat1)" />
+                <listcell label="@load(data.kodeSurat2)" />
+              </listitem>
+            </template>
+          </listbox>
         </groupbox>
+      </tabpanel>
+      <tabpanel>
+      </tabpanel>
+      <tabpanel>
+      </tabpanel>
+      <tabpanel>
+      </tabpanel>
+      <tabpanel>
+      </tabpanel>
+      <tabpanel>
       </tabpanel>
       <tabpanel>
       </tabpanel>
