@@ -3,6 +3,7 @@ package lab.aikibo.viewmodel;
 import java.io.Serializable;
 
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.Clients;
@@ -24,6 +25,15 @@ public class LoginVM implements Serializable {
 	// data for the view
 	private String username;
 	private String password;
+	
+	// status fokus
+	private boolean fokusUsername;
+	private boolean fokusPassword;
+	
+	@Init
+	public void init() {
+		fokusUsername = true;
+	}
 	
 	@Command
 	public void login() {
@@ -60,6 +70,26 @@ public class LoginVM implements Serializable {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public boolean isFokusUsername() {
+		return fokusUsername;
+	}
+
+
+	public void setFokusUsername(boolean fokusUsername) {
+		this.fokusUsername = fokusUsername;
+	}
+
+
+	public boolean isFokusPassword() {
+		return fokusPassword;
+	}
+
+
+	public void setFokusPassword(boolean fokusPassword) {
+		this.fokusPassword = fokusPassword;
 	}
 
 }
