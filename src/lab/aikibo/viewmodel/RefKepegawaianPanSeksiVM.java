@@ -49,7 +49,7 @@ public class RefKepegawaianPanSeksiVM {
 		return kdSeksi;
 	}
 	
-	@NotifyChange("nmSeksi")
+	@NotifyChange({"nmSeksi","fokusNoSuratSeksi"})
 	public void setKdSeksi(String kdSeksi) {
 		this.kdSeksi = kdSeksi;
 		nmSeksi = rsm.getNamaSeksiByKode(kdSeksi);
