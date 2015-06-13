@@ -22,46 +22,76 @@
               <columns>
                 <column align="right" width="100px"/>
                 <column />
+                <column />
               </columns>
               <rows>
                 <row>
                   Kode Seksi
                   <textbox id="txtKdSeksi" 
                       value="@bind(seksi_vm.kdSeksi)"
-                      focus="@bind(seksi_vm.fokusKdSeksi)">
+                      focus="@bind(seksi_vm.fokusKdSeksi)"
+                      disabled="@bind(seksi_vm.disableKdSeksi)">
                     <attribute name="onOK">
-                      <![CDATA[txtNamaSeksi.focus();]]>
+                      <![CDATA[btnVerifikasi.focus();]]>
                     </attribute>
                   </textbox>
+                  <button id="btnVerifikasi" label="Verifikasi" 
+                    disabled="@bind(seksi_vm.disableBtnVerifikasi)"
+                    onClick="@command('verifikasi')"/>
                 </row>
                 <row>
                   Nama Seksi
                   <textbox id="txtNamaSeksi" 
                       value="@bind(seksi_vm.nmSeksi)"
-                      focus="@bind(seksi_vm.fokusNmSeksi)"/>
+                      focus="@bind(seksi_vm.fokusNmSeksi)"
+                      disabled="@bind(seksi_vm.disableNmSeksi)"
+                      width="300px">
+                    <attribute name="onOK">
+                      <![CDATA[txtNoSuratSeksi.focus();]]>
+                    </attribute>
+                  </textbox>
                 </row>
                 <row>
                   No. Surat Seksi
                   <textbox id="txtNoSuratSeksi" 
                       value="@bind(seksi_vm.noSuratSeksi)"
-                      focus="@bind(seksi_vm.fokusNoSuratSeksi)"/> 
+                      focus="@bind(seksi_vm.fokusNoSuratSeksi)"
+                      disabled="@bind(seksi_vm.disableNoSuratSeksi)">
+                    <attribute name="onOK">
+                      <![CDATA[txtKodeSurat1.focus();]]>
+                    </attribute>
+                  </textbox> 
                 </row>
                 <row>
                   Kode Surat 1
                   <textbox id="txtKodeSurat1" 
                       value="@bind(seksi_vm.kdSurat1)"
-                      focus="@bind(seksi_vm.fokusKdSurat1)"/>
+                      focus="@bind(seksi_vm.fokusKdSurat1)"
+                      disabled="@bind(seksi_vm.disableKdSurat1)">
+                    <attribute name="onOK">
+                      <![CDATA[txtKodeSurat2.focus();]]>
+                    </attribute>
+                  </textbox>
                 </row>
                 <row>
                   Kode Surat 2
                   <textbox id="txtKodeSurat2"
                       value="@bind(seksi_vm.kdSurat2)"
-                      focus="@bind(seksi_vm.fokusKdSurat2)"/>
+                      focus="@bind(seksi_vm.fokusKdSurat2)"
+                      disabled="@bind(seksi_vm.disableKdSurat2)">
+                    <attribute name="onOK">
+                      <![CDATA[
+                        btnSimpan.setDisabled(false);
+                        btnSimpan.focus();
+                      ]]>
+                    </attribute>
+                  </textbox>
                 </row>
               </rows>
             </grid>
             <hbox align="center" pack="center" hflex="1">
-              <button label="Simpan" disabled="@bind(seksi_vm.aktifBtnSimpan)" />
+              <button id="btnSimpan" label="Simpan" disabled="@bind(seksi_vm.disableBtnSimpan)" 
+                focus="@bind(seksi_vm.fokusBtnSimpan)"/>
               <button label="Batal" />
               <button label="Keluar" />
             </hbox>
@@ -71,7 +101,8 @@
           <caption label="Data yang sudah ada" />
           <listbox id="box" model="@bind(seksi_vm.daftarRefSeksi)"
               style="overflow:auto; font-size:small" multiple="true"
-              mold="paging" pageSize="5">
+              mold="paging" pageSize="5"
+              emptyMessage="Tidak Ada Data">
             <listhead>
               <listheader label="Kode" width="50px" />
               <listheader label="Nama Seksi" width="300px"/>
