@@ -31,5 +31,20 @@ public class RefSeksiManager {
 		List<RefSeksi> data = (List<RefSeksi>) session.createQuery("from RefSeksi").list();
 		return data;
 	}
+	
+	public RefSeksi getDataSeksiByKode(String kode) {
+		Session session = HibernateUtil.currentSession();
+		session.beginTransaction();
+		
+		RefSeksi result = null;
+		Criteria criteria = session.createCriteria(RefSeksi.class);
+		criteria.add(Restrictions.eq("kdSeksi", kode));
+		List<RefSeksi> data = (List<RefSeksi>) criteria.list();
+		if(!data.isEmpty()) {
+			result = data.get(0);
+		}
+		
+		return result;
+	}
 
 }
