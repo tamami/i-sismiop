@@ -5,6 +5,7 @@ import java.util.List;
 import lab.aikibo.entity.RefSeksi;
 import lab.aikibo.manager.RefSeksiManager;
 
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.Event;
@@ -26,9 +27,17 @@ public class RefKepegawaianPanSeksiVM {
 	private boolean fokusNoSuratSeksi;
 	private boolean fokusKdSurat1;
 	private boolean fokusKdSurat2;
-	private boolean aktifBtnSimpan;
-	private boolean aktifBtnBatal;
-	private boolean aktifBtnKeluar;
+	private boolean disableNmSeksi;
+	private boolean disableNoSuratSeksi;
+	private boolean disableKdSurat1;
+	private boolean disableKdSurat2;
+	private boolean disableBtnSimpan;
+	private boolean disableBtnBatal;
+	private boolean disableBtnKeluar;
+	private boolean disableBtnVerifikasi;
+	private boolean fokusBtnSimpan;
+	private boolean disableKdSeksi;
+	private int status;
 	
 	@Init
 	public void init() {
@@ -40,19 +49,27 @@ public class RefKepegawaianPanSeksiVM {
 	}
 	
 	private void initButton() {
-		aktifBtnSimpan = true;
-		aktifBtnBatal = false;
-		aktifBtnKeluar = false;
+		setDisableBtnSimpan(true);
+		setDisableBtnBatal(false);
+		setDisableBtnKeluar(false);
+		setDisableBtnVerifikasi(false);
+		setDisableNmSeksi(true);
+		setDisableNoSuratSeksi(true);
+		setDisableKdSurat1(true);
+		setDisableKdSurat2(true);
 	}
 	
-	public String getKdSeksi() {
-		return kdSeksi;
-	}
-	
-	@NotifyChange({"nmSeksi","fokusNoSuratSeksi"})
-	public void setKdSeksi(String kdSeksi) {
-		this.kdSeksi = kdSeksi;
-		nmSeksi = rsm.getNamaSeksiByKode(kdSeksi);
+	@Command
+	@NotifyChange({"nmSeksi","fokusNoSuratSeksi","noSuratSeksi","kdSurat1","kdSurat2",
+		"disableNoSuratSeksi"})
+	public void verifikasi() {
+		
+		RefSeksi data = rsm.getDataSeksiByKode(kdSeksi);
+		nmSeksi = data.getNmSeksi();
+		noSuratSeksi = data.getNoSrtSeksi();
+		kdSurat1 = data.getKodeSurat1();
+		kdSurat2 = data.getKodeSurat2();
+		
 		if(nmSeksi == null) {
 			Messagebox.show("Ingin memasukkan data baru dengan kode " + kdSeksi + " ?", null,
 					Messagebox.OK+Messagebox.NO, Messagebox.QUESTION,
@@ -75,7 +92,8 @@ public class RefKepegawaianPanSeksiVM {
 						@Override
 						public void onEvent(Event event) throws Exception {
 							if(Messagebox.ON_OK.equals(event.getName())) {
-								setFokusNoSuratSeksi(true);
+								disableNoSuratSeksi = false;
+								fokusNoSuratSeksi = true;
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
 								setKdSeksi("");
 								setFokusKdSeksi(true);
@@ -84,6 +102,22 @@ public class RefKepegawaianPanSeksiVM {
 				
 			});
 		}
+		
+		Messagebox.show("isi disableNoSuratSeksi " + disableNoSuratSeksi + 
+				", fokusNoSuratSeksi : " + fokusNoSuratSeksi);
+	}
+	
+	// -- setter and getter
+	
+	@NotifyChange({"nmSeksi","fokusNoSuratSeksi","noSuratSeksi","kdSurat1","kdSurat2"})
+	public String getKdSeksi() {
+		return kdSeksi;
+	}
+	
+	
+	public void setKdSeksi(String kdSeksi) {
+		this.kdSeksi = kdSeksi;
+		
 			
 	}
 
@@ -91,35 +125,96 @@ public class RefKepegawaianPanSeksiVM {
 		return nmSeksi;
 	}
 
+	@NotifyChange({"fokusNmSeksi","fokusNoSuratSeksi"})
 	public void setNmSeksi(String nmSeksi) {
 		this.nmSeksi = nmSeksi;
+		
+		if(nmSeksi.equals("")) {
+			Messagebox.show("Nama Seksi tidak boleh kosong.", null, Messagebox.OK, 
+				Messagebox.EXCLAMATION,
+				new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) {
+						if(Messagebox.ON_OK.equals(event.getName())) {
+							fokusNmSeksi = true;
+						}
+					}
+			}
+			);
+		} else {
+			fokusNoSuratSeksi = true;
+		}
 	}
 
 	public String getNoSuratSeksi() {
 		return noSuratSeksi;
 	}
 
+	@NotifyChange({"fokusNoSuratSeksi","fokusKdSurat1"})
 	public void setNoSuratSeksi(String noSuratSeksi) {
 		this.noSuratSeksi = noSuratSeksi;
+		
+		if(noSuratSeksi.length() != 2) {
+			Messagebox.show("Nomor Surat Seksi harus berisi 2 karakter", null, Messagebox.OK,
+				Messagebox.EXCLAMATION,
+				new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) {
+						if(Messagebox.ON_OK.equals(event.getName())) {
+							fokusNoSuratSeksi = true;
+						}
+					}
+			});
+		} else {
+			fokusKdSurat1 = true;
+		}
 	}
 
 	public String getKdSurat1() {
 		return kdSurat1;
 	}
 
+	@NotifyChange({"fokusKdSurat1","fokusKdSurat2"})
 	public void setKdSurat1(String kdSurat1) {
 		this.kdSurat1 = kdSurat1;
+		
+		if(kdSurat1.equals("")) {
+			Messagebox.show("Kode Surat 1 harus diisi", null, Messagebox.OK,
+				Messagebox.EXCLAMATION,
+				new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) {
+						if(Messagebox.ON_OK.equals(event.getName())) {
+							fokusKdSurat1 = true;
+						}
+					}
+			});
+		} else {
+			fokusKdSurat2 = true;
+		}
 	}
 
 	public String getKdSurat2() {
 		return kdSurat2;
 	}
 
-	@NotifyChange("aktifBtnSimpan")
+	@NotifyChange({"disableBtnSimpan","fokusKdSurat2","fokusBtnSimpan"})
 	public void setKdSurat2(String kdSurat2) {
 		this.kdSurat2 = kdSurat2;
 		
-		aktifBtnSimpan = false;
+		if(kdSurat2.equals("")) {
+			Messagebox.show("Kode Surat 2 harus diisi", null, Messagebox.OK,
+				Messagebox.EXCLAMATION,
+				new EventListener<Event>() {
+					@Override
+					public void onEvent(Event event) {
+						fokusKdSurat2 = true;
+					}
+			});
+		} else {
+			setDisableBtnSimpan(false);
+			setFokusBtnSimpan(true);
+		}
 	}
 
 	public List<RefSeksi> getDaftarRefSeksi() {
@@ -170,27 +265,99 @@ public class RefKepegawaianPanSeksiVM {
 		this.fokusKdSurat2 = fokusKdSurat2;
 	}
 
-	public boolean isAktifBtnSimpan() {
-		return aktifBtnSimpan;
-	}
-
-	public void setAktifBtnSimpan(boolean aktifBtnSimpan) {
-		this.aktifBtnSimpan = aktifBtnSimpan;
-	}
-
 	public boolean isAktifBtnBatal() {
-		return aktifBtnBatal;
+		return isDisableBtnBatal();
 	}
 
 	public void setAktifBtnBatal(boolean aktifBtnBatal) {
-		this.aktifBtnBatal = aktifBtnBatal;
+		this.setDisableBtnBatal(aktifBtnBatal);
 	}
 
 	public boolean isAktifBtnKeluar() {
-		return aktifBtnKeluar;
+		return isDisableBtnKeluar();
 	}
 
 	public void setAktifBtnKeluar(boolean aktifBtnKeluar) {
-		this.aktifBtnKeluar = aktifBtnKeluar;
+		this.setDisableBtnKeluar(aktifBtnKeluar);
+	}
+
+	public boolean isDisableBtnSimpan() {
+		return disableBtnSimpan;
+	}
+
+	public void setDisableBtnSimpan(boolean disableBtnSimpan) {
+		this.disableBtnSimpan = disableBtnSimpan;
+	}
+
+	public boolean isDisableBtnBatal() {
+		return disableBtnBatal;
+	}
+
+	public void setDisableBtnBatal(boolean disableBtnBatal) {
+		this.disableBtnBatal = disableBtnBatal;
+	}
+
+	public boolean isDisableBtnKeluar() {
+		return disableBtnKeluar;
+	}
+
+	public void setDisableBtnKeluar(boolean disableBtnKeluar) {
+		this.disableBtnKeluar = disableBtnKeluar;
+	}
+
+	public boolean isFokusBtnSimpan() {
+		return fokusBtnSimpan;
+	}
+
+	public void setFokusBtnSimpan(boolean fokusBtnSimpan) {
+		this.fokusBtnSimpan = fokusBtnSimpan;
+	}
+
+	public boolean isDisableKdSeksi() {
+		return disableKdSeksi;
+	}
+
+	public void setDisableKdSeksi(boolean disableKdSeksi) {
+		this.disableKdSeksi = disableKdSeksi;
+	}
+
+	public boolean isDisableBtnVerifikasi() {
+		return disableBtnVerifikasi;
+	}
+
+	public void setDisableBtnVerifikasi(boolean disableBtnVerifikasi) {
+		this.disableBtnVerifikasi = disableBtnVerifikasi;
+	}
+
+	public boolean isDisableNmSeksi() {
+		return disableNmSeksi;
+	}
+
+	public void setDisableNmSeksi(boolean disableNmSeksi) {
+		this.disableNmSeksi = disableNmSeksi;
+	}
+
+	public boolean isDisableNoSuratSeksi() {
+		return disableNoSuratSeksi;
+	}
+
+	public void setDisableNoSuratSeksi(boolean disableNoSuratSeksi) {
+		this.disableNoSuratSeksi = disableNoSuratSeksi;
+	}
+
+	public boolean isDisableKdSurat1() {
+		return disableKdSurat1;
+	}
+
+	public void setDisableKdSurat1(boolean disableKdSurat1) {
+		this.disableKdSurat1 = disableKdSurat1;
+	}
+
+	public boolean isDisableKdSurat2() {
+		return disableKdSurat2;
+	}
+
+	public void setDisableKdSurat2(boolean disableKdSurat2) {
+		this.disableKdSurat2 = disableKdSurat2;
 	}
 }
