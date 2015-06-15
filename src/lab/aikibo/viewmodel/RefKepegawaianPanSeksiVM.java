@@ -92,7 +92,7 @@ public class RefKepegawaianPanSeksiVM {
 								setFokusKdSeksi(true);
 							}
 						}
-			});
+			}); 
 		} else {
 			Messagebox.show("Ingin mengubah data " + nmSeksi + " ?", null,
 					Messagebox.OK+Messagebox.NO, Messagebox.QUESTION,
