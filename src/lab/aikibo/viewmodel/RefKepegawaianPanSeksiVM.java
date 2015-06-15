@@ -60,17 +60,25 @@ public class RefKepegawaianPanSeksiVM {
 	}
 	
 	@Command
-	@NotifyChange({"nmSeksi","fokusNoSuratSeksi","noSuratSeksi","kdSurat1","kdSurat2",
-		"disableNoSuratSeksi"})
+	@NotifyChange({"kdSeksi", "nmSeksi", "fokusNmSeksi", "fokusKdSeksi", "noSuratSeksi", "kdSurat1",
+		"kdSurat2", "disableNoSuratSeksi", "disableNmSeksi", "disableKdSurat1", "disableKdSurat2"})
 	public void verifikasi() {
 		
-		RefSeksi data = rsm.getDataSeksiByKode(kdSeksi);
-		nmSeksi = data.getNmSeksi();
-		noSuratSeksi = data.getNoSrtSeksi();
-		kdSurat1 = data.getKodeSurat1();
-		kdSurat2 = data.getKodeSurat2();
+		if(kdSeksi == null || kdSeksi == "") {
+			Messagebox.show("Isikan dulu kode seksinya.");
+			fokusKdSeksi = true;
+			return;
+		}
 		
-		if(nmSeksi == null) {
+		RefSeksi data = rsm.getDataSeksiByKode(kdSeksi);
+		if(data != null) {
+			nmSeksi = data.getNmSeksi();
+			noSuratSeksi = data.getNoSrtSeksi();
+			kdSurat1 = data.getKodeSurat1();
+			kdSurat2 = data.getKodeSurat2();
+		}
+		
+		if(nmSeksi == null || nmSeksi == "") {
 			Messagebox.show("Ingin memasukkan data baru dengan kode " + kdSeksi + " ?", null,
 					Messagebox.OK+Messagebox.NO, Messagebox.QUESTION,
 					new EventListener<Event>() {
@@ -78,6 +86,7 @@ public class RefKepegawaianPanSeksiVM {
 						@Override
 						public void onEvent(Event event) throws Exception {
 							if(Messagebox.ON_OK.equals(event.getName())) {
+								disableNmSeksi = false;
 								setFokusNmSeksi(true);
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
 								setFokusKdSeksi(true);
@@ -92,19 +101,22 @@ public class RefKepegawaianPanSeksiVM {
 						@Override
 						public void onEvent(Event event) throws Exception {
 							if(Messagebox.ON_OK.equals(event.getName())) {
+								disableNmSeksi = false;
 								disableNoSuratSeksi = false;
-								fokusNoSuratSeksi = true;
+								disableKdSurat1 = false;
+								disableKdSurat2 = false;
+								fokusNmSeksi = true;
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
 								setKdSeksi("");
+								nmSeksi = "";
+								noSuratSeksi = "";
+								kdSurat1 = "";
+								kdSurat2 = "";
 								setFokusKdSeksi(true);
 							}
 						}
-				
 			});
 		}
-		
-		Messagebox.show("isi disableNoSuratSeksi " + disableNoSuratSeksi + 
-				", fokusNoSuratSeksi : " + fokusNoSuratSeksi);
 	}
 	
 	// -- setter and getter
