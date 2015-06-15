@@ -61,7 +61,8 @@ public class RefKepegawaianPanSeksiVM {
 	
 	@Command
 	@NotifyChange({"kdSeksi", "nmSeksi", "fokusNmSeksi", "fokusKdSeksi", "noSuratSeksi", "kdSurat1",
-		"kdSurat2", "disableNoSuratSeksi", "disableNmSeksi", "disableKdSurat1", "disableKdSurat2"})
+		"kdSurat2", "disableNoSuratSeksi", "disableNmSeksi", "disableKdSurat1", "disableKdSurat2",
+		"disableBtnVerifikasi"})
 	public void verifikasi() {
 		
 		if(kdSeksi == null || kdSeksi == "") {
@@ -87,8 +88,17 @@ public class RefKepegawaianPanSeksiVM {
 						public void onEvent(Event event) throws Exception {
 							if(Messagebox.ON_OK.equals(event.getName())) {
 								disableNmSeksi = false;
-								setFokusNmSeksi(true);
+								disableNoSuratSeksi = false;
+								disableKdSurat1 = false;
+								disableKdSurat2 = false;
+								fokusNmSeksi = true;
+								disableBtnVerifikasi = true;
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
+								kdSeksi = "";
+								nmSeksi = "";
+								noSuratSeksi = "";
+								kdSurat1 = "";
+								kdSurat2 = "";
 								setFokusKdSeksi(true);
 							}
 						}
@@ -106,6 +116,7 @@ public class RefKepegawaianPanSeksiVM {
 								disableKdSurat1 = false;
 								disableKdSurat2 = false;
 								fokusNmSeksi = true;
+								disableBtnVerifikasi = true;
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
 								setKdSeksi("");
 								nmSeksi = "";
