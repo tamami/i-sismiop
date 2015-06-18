@@ -34,7 +34,7 @@
                     <attribute name="onOK">
                       <![CDATA[
                         if(txtNamaSeksi.isDisabled())
-                          btnVerifikasi.focus();
+                          btnVerifikasi.focus(); 
                         else txtNamaSeksi.focus();
                       ]]>
                     </attribute>
