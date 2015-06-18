@@ -32,7 +32,11 @@
                       focus="@bind(seksi_vm.fokusKdSeksi)"
                       disabled="@bind(seksi_vm.disableKdSeksi)">
                     <attribute name="onOK">
-                      <![CDATA[btnVerifikasi.focus();]]>
+                      <![CDATA[
+                        if(txtNamaSeksi.isDisabled())
+                          btnVerifikasi.focus();
+                        else txtNamaSeksi.focus();
+                      ]]>
                     </attribute>
                   </textbox>
                   <button id="btnVerifikasi" label="Verifikasi" 
