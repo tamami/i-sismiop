@@ -97,11 +97,7 @@ public class RefKepegawaianPanSeksiVM {
 								fokusNmSeksi = true;
 								disableBtnVerifikasi = true;
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
-								kdSeksi = "";
-								nmSeksi = "";
-								noSuratSeksi = "";
-								kdSurat1 = "";
-								kdSurat2 = "";
+								initComponent();
 								setFokusKdSeksi(true);
 							}
 						}
