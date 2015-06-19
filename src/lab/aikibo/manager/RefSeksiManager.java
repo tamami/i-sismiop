@@ -46,5 +46,14 @@ public class RefSeksiManager {
 		
 		return result;
 	}
+	
+	public boolean saveOrUpdate(RefSeksi data) {
+		Session session = HibernateUtil.currentSession();
+		session.beginTransaction();
+		
+		session.saveOrUpdate(data);
+		session.flush();
+		return true;
+	}
 
 }

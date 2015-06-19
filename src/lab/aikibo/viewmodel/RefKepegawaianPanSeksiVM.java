@@ -33,7 +33,6 @@ public class RefKepegawaianPanSeksiVM {
 	private boolean disableKdSurat2;
 	private boolean disableBtnSimpan;
 	private boolean disableBtnBatal;
-	private boolean disableBtnKeluar;
 	private boolean disableBtnVerifikasi;
 	private boolean fokusBtnSimpan;
 	private boolean disableKdSeksi;
@@ -51,7 +50,6 @@ public class RefKepegawaianPanSeksiVM {
 	private void initButton() {
 		setDisableBtnSimpan(true);
 		setDisableBtnBatal(false);
-		setDisableBtnKeluar(false);
 		setDisableBtnVerifikasi(false);
 		setDisableNmSeksi(true);
 		setDisableNoSuratSeksi(true);
@@ -130,6 +128,45 @@ public class RefKepegawaianPanSeksiVM {
 		}
 	}
 	
+	
+	@Command
+	@NotifyChange({"kdSeksi","nmSeksi","noSuratSeksi","kdSurat1","kdSurat","fokusKdSeksi",
+		"daftarRefSeksi","disableNmSeksi","disableNoSuratSeksi","disableKdSurat1","disableKdSurat2",
+		"disableBtnVerifikasi","disableBtnSimpan"})
+	public void simpan() {
+		Messagebox.show("Menyimpan data dengan kode " + kdSeksi + " ?", null,
+			Messagebox.YES+Messagebox.NO, Messagebox.QUESTION,
+			new EventListener<Event>() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if(Messagebox.ON_YES.equals(event.getName())) {
+						saveOrUpdate();
+						initButton();
+						fokusKdSeksi = true;
+					}
+					if(Messagebox.ON_NO.equals(event.getName())) {
+						fokusKdSeksi = true;
+						return;
+					}
+				}
+			}
+		);
+	}
+	
+	public void saveOrUpdate() {
+		RefSeksi rs = new RefSeksi();
+		rs.setKdSeksi(kdSeksi);
+		rs.setNmSeksi(nmSeksi);
+		rs.setNoSrtSeksi(noSuratSeksi);
+		rs.setKodeSurat1(kdSurat1);
+		rs.setKodeSurat2(kdSurat2);
+		if(rsm.saveOrUpdate(rs)) {
+			Messagebox.show("Data telah tersimpan.");
+		} else {
+			Messagebox.show("Data gagal tersimpan.");
+		}
+	}
+	
 	// -- setter and getter
 	
 	@NotifyChange({"nmSeksi","fokusNoSuratSeksi","noSuratSeksi","kdSurat1","kdSurat2"})
@@ -139,9 +176,7 @@ public class RefKepegawaianPanSeksiVM {
 	
 	
 	public void setKdSeksi(String kdSeksi) {
-		this.kdSeksi = kdSeksi;
-		
-			
+		this.kdSeksi = kdSeksi;	
 	}
 
 	public String getNmSeksi() {
@@ -296,14 +331,6 @@ public class RefKepegawaianPanSeksiVM {
 		this.setDisableBtnBatal(aktifBtnBatal);
 	}
 
-	public boolean isAktifBtnKeluar() {
-		return isDisableBtnKeluar();
-	}
-
-	public void setAktifBtnKeluar(boolean aktifBtnKeluar) {
-		this.setDisableBtnKeluar(aktifBtnKeluar);
-	}
-
 	public boolean isDisableBtnSimpan() {
 		return disableBtnSimpan;
 	}
@@ -318,14 +345,6 @@ public class RefKepegawaianPanSeksiVM {
 
 	public void setDisableBtnBatal(boolean disableBtnBatal) {
 		this.disableBtnBatal = disableBtnBatal;
-	}
-
-	public boolean isDisableBtnKeluar() {
-		return disableBtnKeluar;
-	}
-
-	public void setDisableBtnKeluar(boolean disableBtnKeluar) {
-		this.disableBtnKeluar = disableBtnKeluar;
 	}
 
 	public boolean isFokusBtnSimpan() {
