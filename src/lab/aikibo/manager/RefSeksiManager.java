@@ -53,6 +53,8 @@ public class RefSeksiManager {
 		
 		session.saveOrUpdate(data);
 		session.flush();
+		session.clear();
+		session.getTransaction().commit();
 		return true;
 	}
 

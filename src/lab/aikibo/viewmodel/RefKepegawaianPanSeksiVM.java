@@ -127,7 +127,7 @@ public class RefKepegawaianPanSeksiVM {
 	
 	
 	@Command
-	@NotifyChange({"kdSeksi","nmSeksi","noSuratSeksi","kdSurat1","kdSurat","fokusKdSeksi",
+	@NotifyChange({"kdSeksi","nmSeksi","noSuratSeksi","kdSurat1","kdSurat2","fokusKdSeksi",
 		"daftarRefSeksi","disableNmSeksi","disableNoSuratSeksi","disableKdSurat1","disableKdSurat2",
 		"disableBtnVerifikasi","disableBtnSimpan"})
 	public void simpan() {
