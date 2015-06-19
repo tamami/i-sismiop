@@ -44,10 +44,15 @@ public class RefKepegawaianPanSeksiVM {
 		
 		setDaftarRefSeksi(rsm.getDaftarSeksi());
 		setFokusKdSeksi(true);
-		initButton();
+		initComponent();
 	}
 	
-	private void initButton() {
+	private void initComponent() {
+		kdSeksi = "";
+		nmSeksi = "";
+		noSuratSeksi = "";
+		kdSurat1 = "";
+		kdSurat2 = "";
 		setDisableBtnSimpan(true);
 		setDisableBtnBatal(false);
 		setDisableBtnVerifikasi(false);
@@ -116,11 +121,7 @@ public class RefKepegawaianPanSeksiVM {
 								fokusNmSeksi = true;
 								disableBtnVerifikasi = true;
 							} else if(Messagebox.ON_NO.equals(event.getName())) {
-								setKdSeksi("");
-								nmSeksi = "";
-								noSuratSeksi = "";
-								kdSurat1 = "";
-								kdSurat2 = "";
+								initComponent();
 								setFokusKdSeksi(true);
 							}
 						}
@@ -141,7 +142,7 @@ public class RefKepegawaianPanSeksiVM {
 				public void onEvent(Event event) throws Exception {
 					if(Messagebox.ON_YES.equals(event.getName())) {
 						saveOrUpdate();
-						initButton();
+						initComponent();
 						fokusKdSeksi = true;
 					}
 					if(Messagebox.ON_NO.equals(event.getName())) {
