@@ -139,6 +139,7 @@ public class RefKepegawaianPanSeksiVM {
 					if(Messagebox.ON_YES.equals(event.getName())) {
 						saveOrUpdate();
 						initComponent();
+						daftarRefSeksi = rsm.getDaftarSeksi();
 						fokusKdSeksi = true;
 					}
 					if(Messagebox.ON_NO.equals(event.getName())) {
