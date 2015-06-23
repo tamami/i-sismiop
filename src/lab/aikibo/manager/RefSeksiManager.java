@@ -1,5 +1,6 @@
 package lab.aikibo.manager;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import lab.aikibo.entity.RefSeksi;
@@ -30,6 +31,17 @@ public class RefSeksiManager {
 		session.beginTransaction();
 		List<RefSeksi> data = (List<RefSeksi>) session.createQuery("from RefSeksi").list();
 		return data;
+	}
+	
+	public List<String> getDaftarNamaSeksi() {
+		List<String> result = new LinkedList<String>();
+		List<RefSeksi> data = getDaftarSeksi(); 
+		
+		for(int i=0; i<data.size(); i++) {
+			RefSeksi currentData = data.get(0);
+			result.add(currentData.getKdSeksi() + " - " + currentData.getNmSeksi());
+		}
+		return result;
 	}
 	
 	public RefSeksi getDataSeksiByKode(String kode) {
