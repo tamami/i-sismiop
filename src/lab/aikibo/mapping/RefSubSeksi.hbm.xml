@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+  SYSTEM "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="lab.aikibo.entity.RefSubSeksi" table="ref_sub_seksi">
+    <composite-id>
+      <key-property name="kdSeksi" column="kd_seksi" type="string" />
+      <key-property name="kdSubSeksi" column="kd_subseksi" type="string" />
+    </composite-id>
+    <property name="nmSubSeksi" type="string">
+      <column name="nm_subseksi" />
+    </property>
+  </class>
+</hibernate-mapping>
