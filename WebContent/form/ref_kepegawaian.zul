@@ -95,9 +95,9 @@
             </grid>
             <hbox align="center" pack="center" hflex="1">
               <button id="btnSimpan" label="Simpan" disabled="@bind(seksi_vm.disableBtnSimpan)" 
-                focus="@bind(seksi_vm.fokusBtnSimpan)"/>
+                focus="@bind(seksi_vm.fokusBtnSimpan)"
+                onClick="@command('simpan')"/>
               <button label="Batal" />
-              <button label="Keluar" />
             </hbox>
           </vbox>
         </groupbox>
@@ -126,7 +126,61 @@
           </listbox>
         </groupbox>
       </tabpanel>
-      <tabpanel>
+      <tabpanel apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('subseksi_vm') @init('lab.aikibo.viewmodel.RefKepegawaianSubSeksiVM')">
+        <groupbox>
+          <caption label="Referensi Sub Seksi" />
+          <vbox>
+            <grid>
+              <columns>
+                <column align="right" width="100px" />
+                <column />
+              </columns>
+              <rows>
+                <row>
+                  Seksi
+                  <listbox mold="select" model="@bind(subseksi_vm.daftarNamaSeksi)"
+                      selectedItem="@bind(subseksi_vm.currentSeksi)">
+                    <template id="subSeksiList" name="model">
+                      <listitem label="@load(each)" />
+                    </template>
+                  </listbox>
+                </row>
+                <row>
+                  Kode Sub Seksi
+                  <textbox id="txtKdSubSeksi" value="@bind(subseksi_vm.kdSubSeksi)"/>
+                </row>
+                <row>
+                  Nama Sub Seksi
+                  <textbox id="txtNmSubSeksi" value="@bind(subseksi_vm.nmSubSeksi)" />
+                </row>
+              </rows>
+            </grid>
+            <hbox align="center" pack="center" hflex="1">
+              <button id="btnSimpan" label="Simpan" />
+              <button id="btnBatal" label="Batal" />
+            </hbox>
+          </vbox>
+        </groupbox>
+        <groupbox>
+          <caption label="Data Yang Sudah Ada" />
+          <listbox id="box" model="@bind(subseksi_vm.daftarSubSeksi)"
+              multiple="true" mold="paging" pageSize="5"
+              emptyMessage="Tidak Ada Data">
+            <listhead>
+              <listheader label="Kode Seksi" />
+              <listheader label="Kode Sub Seksi" />
+              <listheader label="Nama Sub Seksi" />
+            </listhead>
+            <template name="model" var="data">
+              <listitem>
+                <listcell label="@load(data.kdSeksi)" />
+                <listcell label="@load(data.kdSubSeksi)" />
+                <listcell label="@load(data.nmSubSeksi)" />
+              </listitem>
+            </template>
+          </listbox>
+        </groupbox>
       </tabpanel>
       <tabpanel>
       </tabpanel>
