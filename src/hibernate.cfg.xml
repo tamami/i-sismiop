@@ -28,5 +28,6 @@
     <mapping resource="lab/aikibo/mapping/DatLogin.hbm.xml" />
     <mapping resource="lab/aikibo/mapping/Pegawai.hbm.xml" />
     <mapping resource="lab/aikibo/mapping/RefSeksi.hbm.xml" />
+    <mapping resource="lab/aikibo/mapping/RefSubSeksi.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
