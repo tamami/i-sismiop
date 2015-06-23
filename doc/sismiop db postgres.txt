@@ -1,0 +1,20 @@
+pegawai
+=======
+nip char(9) PK		| 060000000
+nm_pegawai charvar(30)	| ADMIN SISMIOP
+nip_baru char(18)	|
+
+dat_login
+=========
+nm_login charvar(9) PK		| ADMIN
+nip char(9) fk pegawai(nip)	| 060000000
+password charvar(250)		| [encrypted]
+
+ref_seksi
+=========
+kd_seksi char(2) PK
+nm_seksi charvar(75)
+no_srt_seksi char(2)
+kode_surat_1 charvar(5)
+kode_surat_2 charvar(5)
+
