@@ -127,7 +127,7 @@
         </groupbox>
       </tabpanel>
       <tabpanel apply="org.zkoss.bind.BindComposer"
-        viewModel="@id('subseksi_vm') @init('lab.aikibo.viewmodel.RefKepegawaianSubSeksiVM')">
+        viewModel="@id('subseksi_vm') @init('lab.aikibo.viewmodel.RefKepegawaianPanSubSeksiVM')">
         <groupbox>
           <caption label="Referensi Sub Seksi" />
           <vbox>
