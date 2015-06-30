@@ -38,7 +38,7 @@ public class RefSeksiManager {
 		List<RefSeksi> data = getDaftarSeksi(); 
 		
 		for(int i=0; i<data.size(); i++) {
-			RefSeksi currentData = data.get(0);
+			RefSeksi currentData = data.get(i);
 			result.add(currentData.getKdSeksi() + " - " + currentData.getNmSeksi());
 		}
 		return result;
