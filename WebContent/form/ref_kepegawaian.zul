@@ -133,7 +133,7 @@
           <vbox>
             <grid>
               <columns>
-                <column align="right" width="100px" />
+                <column align="right" width="200px" />
                 <column />
               </columns>
               <rows>
@@ -148,28 +148,44 @@
                 </row>
                 <row>
                   Kode Sub Seksi
-                  <textbox id="txtKdSubSeksi" value="@bind(subseksi_vm.kdSubSeksi)"/>
+                  <textbox id="txtKdSubSeksi" value="@bind(subseksi_vm.kdSubSeksi)"
+                      disabled="@bind(subseksi_vm.disableKdSubSeksi)"
+                      width="300px">
+                    <attribute name="onOK">
+                      <![CDATA[
+                        txtNmSubSeksi.focus();
+                      ]]>
+                    </attribute>
+                  </textbox>
                 </row>
                 <row>
                   Nama Sub Seksi
-                  <textbox id="txtNmSubSeksi" value="@bind(subseksi_vm.nmSubSeksi)" />
+                  <textbox id="txtNmSubSeksi" value="@bind(subseksi_vm.nmSubSeksi)" 
+                      width="300px">
+                    <attribute name="onOK">
+                      <![CDATA[
+                        btnSimpanSubSeksi.setDisable(false);
+                        btnSimpanSubSeksi.focus();
+                      ]]>
+                    </attribute>
+                  </textbox>
                 </row>
               </rows>
             </grid>
             <hbox align="center" pack="center" hflex="1">
-              <button id="btnSimpan" label="Simpan" />
-              <button id="btnBatal" label="Batal" />
+              <button id="btnSimpanSubSeksi" label="Simpan" disabled="@bind(subseksi_vm.disableBtnSimpan)"/>
+              <button id="btnBatalSubSeksi" label="Batal" />
             </hbox>
           </vbox>
         </groupbox>
         <groupbox>
           <caption label="Data Yang Sudah Ada" />
-          <listbox id="box" model="@bind(subseksi_vm.daftarSubSeksi)"
-              multiple="true" mold="paging" pageSize="5"
+          <listbox id="boxSubSeksi" model="@bind(subseksi_vm.daftarSubSeksi)"
+              multiple="true" mold="paging" pageSize="7"
               emptyMessage="Tidak Ada Data">
             <listhead>
-              <listheader label="Kode Seksi" />
-              <listheader label="Kode Sub Seksi" />
+              <listheader label="Kode Seksi" width="50px"/>
+              <listheader label="Kode Sub Seksi" width="50px"/>
               <listheader label="Nama Sub Seksi" />
             </listhead>
             <template name="model" var="data">
