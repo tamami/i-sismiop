@@ -20,9 +20,15 @@ public class RefKepegawaianPanSubSeksiVM {
 	private RefSubSeksiManager rssm;
 	private RefSubSeksi currentSubSeksi;
 	private String currentSeksi;
+	private boolean disableKdSeksi;
+	private boolean disableKdSubSeksi;
+	private boolean disableNmSubSeksi;
+	private boolean disableBtnSimpan;
+	private boolean focusKdSeksi;
 	
 	@Init
-	@NotifyChange({"kdSeksi","kdSubSeksi","nmSubSeksi","daftarSubSeksi"})
+	@NotifyChange({"kdSeksi","kdSubSeksi","nmSubSeksi","daftarSubSeksi","daftarNamaSeksi",
+		"enableBtnSimpan"})
 	public void init() {
 		rssm = new RefSubSeksiManager();
 		setRsm(new RefSeksiManager());
@@ -36,6 +42,7 @@ public class RefKepegawaianPanSubSeksiVM {
 		daftarSubSeksi = rssm.getDaftarAll();
 		daftarNamaSeksi = rsm.getDaftarNamaSeksi();
 		currentSubSeksi = new RefSubSeksi();
+		disableBtnSimpan = false;
 	}
 	
 	// setter and getter
@@ -102,6 +109,46 @@ public class RefKepegawaianPanSubSeksiVM {
 
 	public void setCurrentSeksi(String currentSeksi) {
 		this.currentSeksi = currentSeksi;
+	}
+
+	public boolean isDisableBtnSimpan() {
+		return disableBtnSimpan;
+	}
+
+	public void setDisableBtnSimpan(boolean enableBtnSimpan) {
+		this.disableBtnSimpan = enableBtnSimpan;
+	}
+
+	public boolean isFocusKdSeksi() {
+		return focusKdSeksi;
+	}
+
+	public void setFocusKdSeksi(boolean focusKdSeksi) {
+		this.focusKdSeksi = focusKdSeksi;
+	}
+
+	public boolean isDisableKdSubSeksi() {
+		return disableKdSubSeksi;
+	}
+
+	public void setDisableKdSubSeksi(boolean disableKdSubSeksi) {
+		this.disableKdSubSeksi = disableKdSubSeksi;
+	}
+
+	public boolean isDisableKdSeksi() {
+		return disableKdSeksi;
+	}
+
+	public void setDisableKdSeksi(boolean disableKdSeksi) {
+		this.disableKdSeksi = disableKdSeksi;
+	}
+
+	public boolean isDisableNmSubSeksi() {
+		return disableNmSubSeksi;
+	}
+
+	public void setDisableNmSubSeksi(boolean disableNmSubSeksi) {
+		this.disableNmSubSeksi = disableNmSubSeksi;
 	}
 
 }
