@@ -38,4 +38,9 @@ public class GlobalController extends SelectorComposer<Component>
 		include.setSrc("/form/ref_kepegawaian.zul");
 	}
 	
+	@GlobalCommand 
+	public void callCatatanPembayaran() {
+		Include include = (Include) Selectors.iterable(getPage(),  "#mainInclude").iterator().next();
+	}
+	
 }
