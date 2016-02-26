@@ -1,0 +1,72 @@
+<zk>
+<window title="Catatan Pembayaran PBB" border="normal" mode="modal"
+    closable="true" width="900px" height="600px"
+    apply="org.zkoss.bind.BindComposer"
+    viewModel="@id('catatan_pembayaran_vm') @init('lab.aikibo.viewmodel.CatatanPembayaranVM')" >
+  <vlayout>
+    <panel border="rounded" title="Informasi NOP" collapsible="true">
+      <panelchildren>
+        <hbox>
+          <label value="NOP" />
+          <textbox value="@bind(catatan_pembayaran_vm.nop)"
+            constraint="/\d{18}/: Isikan dengan 18 digit NOP tanpa tanda baca" />
+          <button label="Cari" onClick="@command('cariClick')" />
+        </hbox>
+      </panelchildren>
+    </panel>
+    <panel border="rounded" title="Informasi Data Wajib Pajak dan Objek Pajak" collapsible="true">
+      <panelchildren>
+        <vlayout>
+          <grid>
+            <columns>
+              <column align="right" width="150px" />
+              <column align="left" />
+            </columns>
+            <rows>
+              <row>
+                Nama Wajib Pajak
+                <textbox readonly="true" value="@bind(catatan_pembayaran_vm.namaWp)" />
+              </row>
+              <row>
+                Alamat Objek Pajak
+                <textbox readonly="true" value="@bind(catatan_pembayaran_vm.alamatOp)" />
+              </row>
+              <row>
+                Alamat Wajib Pajak
+                <textbox readonly="true" value="@bind(catatan_pembayaran_vm.alamatWp)" />
+              </row>
+            </rows>
+          </grid>
+          <groupbox>
+            <caption label="Daftar Catatan Pembayaran" />
+            <listbox id="box" model="@bind(catatan_pembayaran_vm.daftarPembayaran)"
+                style="overflow:auto; font-size:small" multiple="true"
+                mold="paging" pageSize="5" emptyMessage="Tidak Ada Data">
+              <listhead>
+                <listheader label="Tahun" />
+                <listheader label="Jatuh Tempo" />
+                <listheader label="PBB" />
+                <listheader label="Jumlah Bayar" />
+                <listheader label="ke" />
+                <listheader label="Tgl Bayar" />
+                <listheader label="Tgl Rekam" />
+              </listhead> 
+              <template name="model" var="data">
+                <listitem>
+                  <listcell label="@load(data.tahunPajak)" />
+                  <listcell label="@load(data.jatuhTempo)" />
+                  <listcell label="@load(data.pbb)" />
+                  <listcell label="@load(data.jumlahBayar)" />
+                  <listcell label="@load(data.ke)" />
+                  <listcell label="@load(data.tanggalBayar)" />
+                  <listcell label="@load(data.tanggalRekam)" />
+                </listitem>
+              </template>
+            </listbox>
+          </groupbox>
+        </vlayout>
+      </panelchildren>
+    </panel>
+  </vlayout>
+</window>
+</zk>

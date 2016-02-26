@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+  SYSTEM "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="lab.aikibo.entity.RefSeksi" table="ref_seksi">
+    <id name="kdSeksi" column="kd_seksi" type="string"/>
+    <property name="nmSeksi" type="string">
+      <column name="nm_seksi" />
+    </property>
+    <property name="noSrtSeksi" type="string">
+      <column name="no_srt_seksi" />
+    </property>
+    <property name="kodeSurat1" type="string">
+      <column name="kode_surat_1" />
+    </property>
+    <property name="kodeSurat2" type="string">
+      <column name="kode_surat_2" />
+    </property>
+  </class>
+</hibernate-mapping>
